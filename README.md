@@ -40,13 +40,6 @@ LiteraKarya adalah platform baca buku online yang memadukan kemudahan akses ke b
 | Notes | Shanti Yoga Rahayu | Modul ini menampilkan keterangan bagi pembaca.  Modul ini memungkinkan pembaca untuk membuat catatan pribadi sehubungan dengan isi buku.  Catatan berfungsi sebagai alat untuk membantu pembaca untuk mengingat informasi penting. Catatan-catatan ini bisa berupa pemikiran, pemahaman, atau pertanyaan yang muncul selama membaca.  |
 | Forum Page | I Putu Gede Kimi Agastya | Modul ini memungkinkan user untuk saling berdiskusi dengan user lainnya. User dapat membuat forum yang membahas tentang suatu judul buku atau mengenai topik lainnya yang berkaitan dengan literasi. |
 
-### :card_index_dividers: Sumber dataset katalog buku.
-Kami menggunakan dataset katalog yang bersumber di link berikut
-<br>
-https://drive.google.com/file/d/1vgnF971dMBPa6_cyupPa8VdrCmhSxv7O/view?usp=drive_link  
-<br>
-Dataset diatas didapatkan melalui scraping website https://www.goodreads.com/ yang merupakan website untuk melihat jenis-jenis buku. Isi dari dataset merupakan data dari 113 buku yang masing-masing memiliki informasi nama_buku, gambar_buku, author, description, genre_1, jumlah_halaman, waktu_publikasi, dsb.
-
 
 ### :man_judge: Role atau peran pengguna beserta deskripsi.
 User adalah satu-satunya role pengguna dalam katalog LiteraKarya. Setelah berhasil membuat akun, user dapat memanfaatkan fitur-fitur pendukung seperti notes dan forum page untuk membantu meningkatkan semangat membaca. Selain itu, user juga dapat memilih elemen-elemen seperti nama dan informasi kontak untuk ditampilkan.
