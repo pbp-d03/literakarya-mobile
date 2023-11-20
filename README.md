@@ -6,7 +6,7 @@
 
 
 > [!NOTE] 
-> Tujuan kami adalah merancang dan mengimplementasikan halaman web dengan menggunakan Flutter. Kami akan memastikan aplikasi yang dibuat memiliki fungsionalitas yang serupa dengan website yang kami buat sebelumnya pada Proyek Tengah Semester. Selain itu, kami juga akan memanfaatkan bahasa desain Material untuk memastikan tampilan aplikasi yang dibuat terlihat menarik.
+> Tujuan kami adalah merancang dan mengimplementasikan aplikasi mobile dengan menggunakan Flutter. Kami akan memastikan aplikasi yang dibuat memiliki fungsionalitas yang serupa dengan website yang kami buat sebelumnya pada Proyek Tengah Semester. Selain itu, kami juga akan memanfaatkan bahasa desain Material untuk memastikan tampilan aplikasi yang dibuat terlihat menarik.
 
 ### :technologist: Anggota Kelompok:
 
