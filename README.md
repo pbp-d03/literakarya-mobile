@@ -6,7 +6,7 @@
 
 
 > [!NOTE] 
-> Tujuan kami adalah merancang dan mengimplementasikan halaman web dengan menggunakan framework Django. Kami akan memastikan situs web yang dibuat sudah memiliki  model, tampilan (views), dan template yang diperlukan untuk meningkatkan pengalaman pengguna. Selain itu, kami juga akan memanfaatkan framework CSS untuk memastikan tampilan situs web yang dibuat terlihat menarik. Terakhir, kami akan membuat dan mengimplementasikan unit test untuk memastikan fungsionalitas situs web kami.
+> Tujuan kami adalah merancang dan mengimplementasikan halaman web dengan menggunakan Flutter. Kami akan memastikan aplikasi yang dibuat memiliki fungsionalitas yang serupa dengan website yang kami buat sebelumnya pada Proyek Tengah Semester. Selain itu, kami juga akan memanfaatkan bahasa desain Material untuk memastikan tampilan aplikasi yang dibuat terlihat menarik.
 
 ### :technologist: Anggota Kelompok:
 
