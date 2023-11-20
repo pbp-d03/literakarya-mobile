@@ -50,3 +50,8 @@ Dataset diatas didapatkan melalui scraping website https://www.goodreads.com/ ya
 
 ### :man_judge: Role atau peran pengguna beserta deskripsi.
 User adalah satu-satunya role pengguna dalam katalog LiteraKarya. Setelah berhasil membuat akun, user dapat memanfaatkan fitur-fitur pendukung seperti notes dan forum page untuk membantu meningkatkan semangat membaca. Selain itu, user juga dapat memilih elemen-elemen seperti nama dan informasi kontak untuk ditampilkan.
+
+
+### :newspaper: Tautan berita acara.
+Berita acara pengembangan aplikasi ini dapat diakses melalui tautan berikut:
+https://docs.google.com/spreadsheets/d/102DaG-u7NE7jeJ_qGmq7lV5fmbtNTQvZ/edit?usp=sharing&ouid=105183920495456976872&rtpof=true&sd=true
