@@ -42,7 +42,20 @@ LiteraKarya adalah platform baca buku online yang memadukan kemudahan akses ke b
 
 
 ### :man_judge: Role atau peran pengguna beserta deskripsi.
-User adalah satu-satunya role pengguna dalam katalog LiteraKarya. Setelah berhasil membuat akun, user dapat memanfaatkan fitur-fitur pendukung seperti notes dan forum page untuk membantu meningkatkan semangat membaca. Selain itu, user juga dapat memilih elemen-elemen seperti nama dan informasi kontak untuk ditampilkan.
+1. Admin Literakarya = Peran dari admin aplikasi yang mempunyai wewenang dan hak fitur lebih  untuk diakses dibanding user login biasa. Admin Literakarya harus login terlebih dahulu dengan username unik yang sudah dipersiapkan untuk bisa mengakses wewenang dan fitur lebihnya.
+
+2. User Login Biasa = Peran dari user biasa yang harus login ke dalam aplikasi kita sebelum bisa menggunakan fitur-fitur yang sudah dipersiapkan oleh developer.
+
+
+### Alur Pengintegrasian dengan Web Service untuk Terhubung dengan Aplikasi Web yang Sudah dibuat saat Proyek Tengah Semester
+1. Website PTS yang sudah di-deploy akan kami atur agar memiliki backend yang dapat menampilkan data-data terkait dalam format JSON. 
+
+2. Membuat file bernama fetch.dart dalam utils folder di module apps masing-masing anggota untuk mengakses data JSON dari backend secara async. File fetch.dart dilengkapi dengan function yang dapat dipanggil untuk me-return data yang diperlukan dalam suatu list. 
+
+3. Function di dalam fetch.dart memiliki url yang dapat digunakan sebagai endpoint JSON untuk integrasi aplikasi.
+
+4. Pemanggilan function dilakukan di widget terkait untuk diolah sesuai dengan kebutuhan fitur dari masing-masing module.
+
 
 
 ### :newspaper: Tautan berita acara.
