@@ -1,4 +1,4 @@
-[![Deploy](https://github.com/pbp-d03/literakarya/actions/workflows/dpl.yml/badge.svg)](https://github.com/pbp-d03/literakarya/actions/workflows/dpl.yml)
+[![Deploy](https://github.com/pbp-d03/literakarya-mobile/actions/workflows/dpl.yml/badge.svg)](https://github.com/pbp-d03/literakarya-mobile/actions/workflows/dpl.yml)
 
 # Proyek Akhir Semester
 
