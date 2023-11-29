@@ -1,5 +1,6 @@
 // All
 import 'package:flutter/material.dart';
+import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
 
@@ -12,6 +13,16 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("LiteraKarya"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  (Route<dynamic> route) => false);
+            },
+          ),
+        ],
       ),
       drawer: buildDrawer(context),
       body: Center(
@@ -39,7 +50,7 @@ class MyHomePage extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30.0),
                         child: Image.network(
-                          "https://i.pinimg.com/564x/d1/d8/e5/d1d8e5990a1d4b43ee791be68451d4f7.jpg",
+                          "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1489732961i/1362193.jpg",
                           height: 240,
                         ),
                       )),
@@ -90,7 +101,6 @@ class MyHomePage extends StatelessWidget {
                 ),
               ],
             )),
-        // MULAI KERJAIN DARI SINI YA
       ),
     );
   }
