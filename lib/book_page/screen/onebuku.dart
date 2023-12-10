@@ -118,9 +118,37 @@ class _SingleBookState extends State<SingleBook> {
                       },
                       child: Text(
                         "$bookmark",
-                        style: TextStyle(color: warna),
+                        style: TextStyle(
+                            color: warna,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            height: 1.5),
                       )),
                   const SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 85, 107, 231),
+                        foregroundColor: Colors.white),
+                    onPressed: () {
+                      // Route menu ke counter
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TestMe(
+                                  idBuku: widget.data.pk,
+                                  judulBuku: widget.data.fields.namaBuku,
+                                )),
+                      );
+                    },
+                    child: const Text(
+                      'Komen Buku',
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          height: 1.5),
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
                   Align(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,19 +157,28 @@ class _SingleBookState extends State<SingleBook> {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            // AUTHOR
+                            Row(children: [
+                              Icon(Icons.person, color: Colors.green[600]),
+                              Text("${widget.data.fields.author}",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.green[600]))
+                            ]),
+                            SizedBox(height: 10),
                             Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // AUTHOR
                                   Row(children: [
-                                    Icon(Icons.person,
-                                        color: Colors.green[600]),
-                                    Text("${widget.data.fields.author}",
+                                    Icon(Icons.pages, color: Colors.blue),
+                                    Text(
+                                        "${widget.data.fields.jumlahHalaman} halaman",
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
-                                            color: Colors.green[600]))
+                                            color: Colors.blue))
                                   ]),
                                   Row(children: [
                                     Icon(Icons.rate_review,
@@ -159,16 +196,6 @@ class _SingleBookState extends State<SingleBook> {
                                             fontWeight: FontWeight.normal)),
                                   ])
                                 ]),
-                            SizedBox(height: 10),
-                            Row(children: [
-                              Icon(Icons.pages, color: Colors.blue),
-                              Text(
-                                  "${widget.data.fields.jumlahHalaman} halaman",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.blue))
-                            ]),
                           ]),
                       // ============================= Genres ================================
                       SizedBox(height: 10),
@@ -221,34 +248,6 @@ class _SingleBookState extends State<SingleBook> {
                               ])),
                     ],
                   )),
-                  const SizedBox(height: 24.0),
-                  GestureDetector(
-                    onTap: () {
-                      // Route menu ke counter
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TestMe(
-                                  idBuku: widget.data.pk,
-                                  judulBuku: widget.data.fields.namaBuku,
-                                )),
-                      );
-                    },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  width: 1,
-                                  color: Color.fromARGB(255, 10, 7, 7)))),
-                      child: const Text(
-                        'Komen Buku',
-                        style: TextStyle(
-                            fontSize: 17,
-                            color: Color.fromARGB(255, 195, 116, 13),
-                            height: 1.5),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
