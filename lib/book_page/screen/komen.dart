@@ -105,7 +105,7 @@ class _TestMeState extends State<TestMe> {
                                         int idKomen = snapshot.data[index].pk;
                                         if (userLogin == "adminliterakarya") {
                                           final response = await request.postJson(
-                                              "http://127.0.0.1:8000/books/delete-komen-flutter/",
+                                              "https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/delete-komen-flutter/",
                                               jsonEncode(<String, int>{
                                                 'idKomen': idKomen,
                                                 // TODO: Sesuaikan field data sesuai dengan aplikasimu
@@ -134,7 +134,7 @@ class _TestMeState extends State<TestMe> {
             if (formKey.currentState!.validate()) {
               // print(commentController.text);
               final response = await request.postJson(
-                  "http://127.0.0.1:8000/books/add-komen-flutter/$idBukuPassing/",
+                  "https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/add-komen-flutter/$idBukuPassing/",
                   jsonEncode(<String, String>{
                     'isi_komen': commentController.text
                     // TODO: Sesuaikan field data sesuai dengan aplikasimu

@@ -94,7 +94,7 @@ class _SingleBookState extends State<SingleBook> {
                       onPressed: () async {
                         if (bookmark == "AddBookmark") {
                           final response = await request.postJson(
-                              "http://127.0.0.1:8000/books/add-bookmark-flutter/$uname/",
+                              "https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/add-bookmark-flutter/$uname/",
                               jsonEncode(<String, int>{
                                 'idBuku': idPassing,
                                 // TODO: Sesuaikan field data sesuai dengan aplikasimu
@@ -105,7 +105,7 @@ class _SingleBookState extends State<SingleBook> {
                           });
                         } else {
                           final response = await request.postJson(
-                              "http://127.0.0.1:8000/books/delete-bookmark-flutter/$uname/",
+                              "https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/delete-bookmark-flutter/$uname/",
                               jsonEncode(<String, int>{
                                 'idBuku': idPassing
                                 // TODO: Sesuaikan field data sesuai dengan aplikasimu

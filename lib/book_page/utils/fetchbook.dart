@@ -8,9 +8,10 @@ Future<List<Book>> fetchBook(String genre) async {
   // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
   var url;
   if (genre == "") {
-    url = Uri.parse('http://127.0.0.1:8000/books/api/');
+    url = Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/api/');
   } else {
-    url = Uri.parse('http://127.0.0.1:8000/books/book-filter/$genre/');
+    url = Uri.parse(
+        'https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/book-filter/$genre/');
   }
 
   // var url = Uri.parse('http://localhost:8000/get-items/');
