@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:literakarya_mobile/book_page/screen/list_bookmark.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/homepage/homepage.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -31,8 +32,20 @@ Drawer buildDrawer(BuildContext context) {
         ),
         Divider(color: Colors.white),
         ListTile(
+          title: const Text('My Books', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.bookmark_add, color: Colors.white),
+          onTap: () {
+            // Route menu ke counter
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const DaftarBookmark()),
+            );
+          },
+        ),
+        // Divider(color: Colors.white),
+        ListTile(
           title: const Text('List Buku', style: TextStyle(color: Colors.white)),
-          leading: const Icon(Icons.tour, color: Colors.white),
+          leading: const Icon(Icons.book_sharp, color: Colors.white),
           onTap: () {
             // Route menu ke counter
             Navigator.pushReplacement(

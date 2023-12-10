@@ -6,22 +6,25 @@ import 'package:literakarya_mobile/book_page/utils/fetchbook.dart';
 import 'package:literakarya_mobile/book_page/utils/fetchbookmark.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
 
-class DaftarBuku extends StatefulWidget {
-  const DaftarBuku({super.key});
+class DaftarBookmark extends StatefulWidget {
+  const DaftarBookmark({super.key});
 
   @override
-  State<DaftarBuku> createState() => _DaftarBukuState();
+  State<DaftarBookmark> createState() => _DaftarBookmarkState();
 }
 
-class _DaftarBukuState extends State<DaftarBuku> {
-  String genre = "";
+class _DaftarBookmarkState extends State<DaftarBookmark> {
+  // String genre = "";
+  // String genre = "";
   String uname = LoginPage.uname;
+  bool val = false;
 
   // List<Book> listBookmark = [];
 
   // void getlist() async {
   //   Future<List<Book>> futureList = fetchBookmark(uname);
   //   listBookmark = await futureList;
+  //   print(listBookmark);
   // }
 
   // String dibookmark(int idBuku) {
@@ -37,50 +40,23 @@ class _DaftarBukuState extends State<DaftarBuku> {
   //     }
   //   }
   //   print(val);
+  //   print(listBookmark);
+  //   print("AAA");
   //   if (val == true) {
   //     return "DeleteBookmark";
   //   }
   //   return "AddBookmark";
   // }
-  // bool updateList(String value) {
-  //   //this fuction
-  //   genre = value;
-
-  //   return true;
-
-  //   // getlist();
-  //   // List<Book> displayBook = List.from(listBook);
-
-  //   // print(displayBook.length);
-
-  //   // setState(() {
-  //   //   displayBook = listBook
-  //   //       .where((element) =>
-  //   //           element.fields.genre1
-  //   //               .toLowerCase()
-  //   //               .contains(value.toLowerCase()) ||
-  //   //           element.fields.genre2
-  //   //               .toLowerCase()
-  //   //               .contains(value.toLowerCase()) ||
-  //   //           element.fields.genre3
-  //   //               .toLowerCase()
-  //   //               .contains(value.toLowerCase()) ||
-  //   //           element.fields.genre4
-  //   //               .toLowerCase()
-  //   //               .contains(value.toLowerCase()) ||
-  //   //           element.fields.genre5.toLowerCase().contains(value.toLowerCase()))
-  //   //       .toList();
-  //   //   print(displayBook.length);
-  //   // });
-  // }
 
   @override
   Widget build(BuildContext context) {
+    String userName = LoginPage.uname;
     return Scaffold(
         // backgroundColor: Colors.green[100],
         appBar: AppBar(
-          title: Text("Daftar Buku"),
+          title: Text("Daftar Bookmark"),
         ),
+        // menambahkan Drawer untuk navigasi antarhalaman
         drawer: buildDrawer(context),
         body: Container(
             decoration: BoxDecoration(
@@ -98,65 +74,66 @@ class _DaftarBukuState extends State<DaftarBuku> {
                     children: [
                       Center(
                         child: Text(
-                          "Welcome to Daftar Buku LiteraKarya",
+                          "Happy Reading ${userName} !!!",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 25.0,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(
-                        height: 16.0,
-                      ),
-                      Text(
-                        "Search for a Genre Book",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      TextField(
-                        onChanged: (value) {
-                          setState(() {
-                            genre = value;
-                          });
-                        },
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color.fromARGB(255, 126, 177, 128),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide.none),
-                            hintText:
-                                "eg: Comedy, Fiction, History etc (Gunakan Huruf Kapital Di Awal Kata)",
-                            prefixIcon: Icon(Icons.search),
-                            prefixIconColor: Color.fromARGB(255, 62, 166, 66)),
-                      ),
-                      SizedBox(
-                        height: 16.0,
-                      ),
+                      // SizedBox(
+                      //   height: 16.0,
+                      // ),
+                      // Text(
+                      //   "Search for a Genre Book",
+                      //   style: TextStyle(
+                      //       color: Colors.white,
+                      //       fontSize: 16.0,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
+                      // SizedBox(
+                      //   height: 10.0,
+                      // ),
+                      // TextField(
+                      //   onChanged: (value) {
+                      //     setState(() {
+                      //       genre = value;
+                      //     });
+                      //   },
+                      //   style: TextStyle(color: Colors.white),
+                      //   decoration: InputDecoration(
+                      //       filled: true,
+                      //       fillColor: Color.fromARGB(255, 126, 177, 128),
+                      //       border: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(8.0),
+                      //           borderSide: BorderSide.none),
+                      //       hintText:
+                      //           "eg: Comedy, Fiction, History etc (Gunakan Huruf Kapital Di Awal Kata)",
+                      //       prefixIcon: Icon(Icons.search),
+                      //       prefixIconColor: Color.fromARGB(255, 62, 166, 66)),
+                      // ),
+                      // SizedBox(
+                      //   height: 16.0,
+                      // ),
                     ],
                   ),
                 ),
                 Expanded(
                   child: FutureBuilder(
-                      future: fetchBook(genre),
+                      future: fetchBookmark(userName),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.data == null) {
                           return const Center(
                               child: CircularProgressIndicator());
                         } else {
-                          if (!snapshot.hasData) {
+                          if (snapshot.data.length == 0) {
                             return Column(
                               children: const [
                                 Text(
-                                  "Tidak ada buku :(",
+                                  "Tidak ada buku yang di Bookmark Nih :(",
                                   style: TextStyle(
-                                      color: Color(0xff59A5D8), fontSize: 20),
+                                      color: Color.fromARGB(255, 222, 238, 249),
+                                      fontSize: 20),
                                 ),
                                 SizedBox(height: 8),
                               ],
@@ -232,7 +209,7 @@ class _DaftarBukuState extends State<DaftarBuku> {
                                         ),
                                       ),
                                       onTap: () {
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => SingleBook(

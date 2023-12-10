@@ -4,14 +4,9 @@ import 'dart:convert';
 
 import 'package:literakarya_mobile/book_page/model/books.dart';
 
-Future<List<Book>> fetchBook(String genre) async {
+Future<List<Book>> fetchBookmark(String uname) async {
   // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-  var url;
-  if (genre == "") {
-    url = Uri.parse('http://127.0.0.1:8000/books/api/');
-  } else {
-    url = Uri.parse('http://127.0.0.1:8000/books/book-filter/$genre/');
-  }
+  var url = Uri.parse('http://127.0.0.1:8000/books/bookmark-flutter/$uname/');
 
   // var url = Uri.parse('http://localhost:8000/get-items/');
   var response = await http.get(
