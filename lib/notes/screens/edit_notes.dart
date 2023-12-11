@@ -182,7 +182,7 @@ class _EditNotePageState extends State<EditNotePage> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       final response = await request.postJson(
-                          "http://127.0.0.1:8000/notes/edit-note-flutter/$idNote/",
+                          "https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/edit-note-flutter/$idNote/",
                           jsonEncode(<String, String>{
                             'judul_catatan' : _judulCatatan,
                             'judul_buku': _judulBuku,

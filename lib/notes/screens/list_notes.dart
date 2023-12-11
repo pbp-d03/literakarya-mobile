@@ -22,7 +22,7 @@ class _NotesPageState extends State<NotesPage> {
 
   Future<void> fetchNote(request) async {
     try {
-      var data = await request.get('http://127.0.0.1:8000/notes/get-note/');
+      var data = await request.get('https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/get-note/');
       List<Note> listNote = [];
       for (var d in data) {
         if (d != null) {
@@ -39,7 +39,7 @@ class _NotesPageState extends State<NotesPage> {
 
   Future<void> deleteNote(int noteId, CookieRequest request) async {
     try {
-      final Uri url = Uri.parse('http://127.0.0.1:8000/notes/delete-note-flutter/$noteId/');
+      final Uri url = Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/delete-note-flutter/$noteId/');
       final response = await http.delete(url);
       if (response.statusCode == 204) { // Assuming 204 is used for successful deletion
         print('Note deleted successfully');
@@ -160,7 +160,7 @@ class _NotesPageState extends State<NotesPage> {
                               onPressed: () async {
                               int idNote = notes[index].pk;
                             final response = await request.postJson(
-                                "http://127.0.0.1:8000/notes/delete-note-flutter/$idNote/",
+                                "https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/delete-note-flutter/$idNote/",
                                 jsonEncode(<String, String>{
                                 }));
                               },
