@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:literakarya_mobile/book_page/screen/list_bookmark.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
+import 'package:literakarya_mobile/ereading/screens/list_ereading.dart';
+import 'package:literakarya_mobile/user_profile/screens/profile_page.dart';
 import 'package:literakarya_mobile/homepage/homepage.dart';
 import 'package:literakarya_mobile/notes/screens/list_notes.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -32,13 +35,45 @@ Drawer buildDrawer(BuildContext context) {
         ),
         Divider(color: Colors.white),
         ListTile(
+          title: const Text('My Books', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.bookmark_add, color: Colors.white),
+          onTap: () {
+            // Route menu ke counter
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const DaftarBookmark()),
+            );
+          },
+        ),
+        // Divider(color: Colors.white),
+        ListTile(
           title: const Text('List Buku', style: TextStyle(color: Colors.white)),
-          leading: const Icon(Icons.tour, color: Colors.white),
+          leading: const Icon(Icons.book_sharp, color: Colors.white),
           onTap: () {
             // Route menu ke counter
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const DaftarBuku()),
+            );
+          },
+        ),
+        ListTile(
+          title: const Text('Profile', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.bookmarks_rounded, color: Colors.white),
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
+          },
+        ),
+        ListTile(
+          title: const Text('Ereading', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.bookmarks_rounded, color: Colors.white),
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const EreadingPage()),
             );
           },
         ),
@@ -49,10 +84,9 @@ Drawer buildDrawer(BuildContext context) {
             // Route menu ke counter
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const NotesPage()),
-            );
-          },
-        ),
+              MaterialPageRoute(builder: (context) => const NotesPage()));
+          }
+        )
       ],
     ),
   ));

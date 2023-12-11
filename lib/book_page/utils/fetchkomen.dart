@@ -3,17 +3,12 @@ import 'package:literakarya_mobile/authentication/login.dart';
 import 'dart:convert';
 
 import 'package:literakarya_mobile/book_page/model/books.dart';
+import 'package:literakarya_mobile/book_page/model/comment.dart';
 
-Future<List<Book>> fetchBook(String genre) async {
+Future<List<Komen>> fetchKomen(int id) async {
   // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-  var url;
-  if (genre == "") {
-    url = Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/api/');
-  } else {
-    url = Uri.parse(
-        'https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/book-filter/$genre/');
-  }
-
+  var url = Uri.parse(
+      'https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/get-komen/$id/');
   // var url = Uri.parse('http://localhost:8000/get-items/');
   var response = await http.get(
     url,
@@ -23,16 +18,16 @@ Future<List<Book>> fetchBook(String genre) async {
       // "Access-Control-Allow-Origin": "*",
     },
   );
-  // print(response.bodyBytes);
+  // print(response.body);
   // melakukan decode response menjadi bentuk json
   var data = jsonDecode(utf8.decode(response.bodyBytes));
   // melakukan konversi data json menjadi object Item
-  List<Book> list_book = [];
+  List<Komen> list_komen = [];
   // print(data);
   for (var d in data) {
     if (d != null) {
-      list_book.add(Book.fromJson(d));
+      list_komen.add(Komen.fromJson(d));
     }
   }
-  return list_book;
+  return list_komen;
 }
