@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:literakarya_mobile/book_page/screen/list_bookmark.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/ereading/screens/list_ereading.dart';
+import 'package:literakarya_mobile/user_profile/screens/profile_page.dart';
 import 'package:literakarya_mobile/homepage/homepage.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +57,16 @@ Drawer buildDrawer(BuildContext context) {
           },
         ),
         Divider(color: Colors.white),
+        ListTile(
+          title: const Text('Profile', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.bookmarks_rounded, color: Colors.white),
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
+          },
+        ),
         ListTile(
           title: const Text('Ereading', style: TextStyle(color: Colors.white)),
           leading: const Icon(Icons.bookmarks_rounded, color: Colors.white),
