@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/homepage/homepage.dart';
+import 'package:literakarya_mobile/notes/screens/list_notes.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +39,17 @@ Drawer buildDrawer(BuildContext context) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const DaftarBuku()),
+            );
+          },
+        ),
+        ListTile(
+          title: const Text('Catatan Saya', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.note, color: Colors.white),
+          onTap: () {
+            // Route menu ke counter
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const NotesPage()),
             );
           },
         ),
