@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/notes/models/note.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
 import 'package:literakarya_mobile/notes/screens/detail_notes.dart';
@@ -71,13 +72,14 @@ class _NotesPageState extends State<NotesPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final uname = LoginPage.uname;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           'Catatan',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
         actions: [
           IconButton(
@@ -98,7 +100,7 @@ class _NotesPageState extends State<NotesPage> {
           ? const Center(
               child: Text(
                 "Tidak ada catatan.",
-                style: TextStyle(color: Color.fromARGB(255, 43, 18, 201), fontSize: 20),
+                style: TextStyle(color: Color.fromARGB(255, 38, 166, 154), fontSize: 20),
               ),
             )
           : ListView.builder(
@@ -113,7 +115,12 @@ class _NotesPageState extends State<NotesPage> {
                   );
                 },
                 child: Card(
+                  color: Colors.teal.shade50,
+                  elevation: 0,
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12), // Adjust the border radius as needed
+                  ),
                   child: Stack(
                     children: [
                       Padding(
@@ -137,7 +144,8 @@ class _NotesPageState extends State<NotesPage> {
                              Text(
                               "Penanda : ${notes[index].fields.penanda}",
                               style: const TextStyle(
-                                color:   Color.fromARGB(255, 41, 98, 255), // Warna biru tua
+                                fontWeight: FontWeight.bold,
+                                color:   Color.fromARGB(255, 16, 131, 120), 
                               ))
                           ],
                         ),
@@ -148,16 +156,16 @@ class _NotesPageState extends State<NotesPage> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            IconButton(
-                              icon: Icon(Icons.edit, color: Colors.blue),
-                              onPressed: () async {
-                                final result = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => EditNotePage(note: notes[index]),
-                                  ),
-                                );
-                                                  // Check if the note was updated and refresh the list
+                            if (uname != "adminliterakarya")
+                              IconButton(
+                                icon: Icon(Icons.edit, color: Color.fromARGB(255, 38, 166, 154)),
+                                onPressed: () async {
+                                  final result = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditNotePage(note: notes[index]),
+                                    ),
+                                  );
                                 if (result == true) {
                                   refreshNotesList();
                                 }
@@ -168,8 +176,6 @@ class _NotesPageState extends State<NotesPage> {
                               onPressed: () async {
                               int idNote = notes[index].pk;
                               await deleteNote(idNote, request);
-                            
-                                ;
                               },
                             ),
                           ],

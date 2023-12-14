@@ -49,11 +49,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
-                          color: Colors.black,
+                          color: Color.fromRGBO(0, 137, 123, 1),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 20.0),
+                      const SizedBox(height: 30.0),
                       TextFormField(
                         controller: _usernameController,
                         decoration: InputDecoration(
@@ -112,7 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(height: 30.0),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.blueAccent,
+                          primary: Colors.teal.shade400,
                           onPrimary: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -132,7 +132,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                 content: Text(
-                                    "Account has been successfully registered!"),
+                                    "Registrasi akun berhasil!"),
                               ));
                               Navigator.pushReplacement(
                                 context,
@@ -143,7 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                 content: Text(
-                                    "An error occurred, please try again."),
+                                    "Gagal. Silakan coba lagi!"),
                               ));
                             }
                           }
@@ -155,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'Already have an account? ',
+                            'Sudah punya akun? ',
                             style: TextStyle(
                               fontSize: 17,
                               color: Colors.black,

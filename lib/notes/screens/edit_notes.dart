@@ -69,7 +69,7 @@ class _EditNotePageState extends State<EditNotePage> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 33, 30, 233),
+        backgroundColor: Color.fromARGB(255, 38, 166, 154),
         foregroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -177,7 +177,7 @@ class _EditNotePageState extends State<EditNotePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue.shade700),
+                    backgroundColor: MaterialStateProperty.all(Colors.teal.shade400),
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {

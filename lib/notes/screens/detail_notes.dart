@@ -14,13 +14,14 @@ class DetailNotePage extends StatelessWidget {
           item.fields.judulCatatan,
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Card(
-          elevation: 4,
+          color: Colors.teal.shade50,
+          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(

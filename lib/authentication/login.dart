@@ -67,11 +67,11 @@ class _LoginPageState extends State<LoginPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 24,
-                        color: Colors.black,
+                        color: Color.fromRGBO(0, 137, 123, 1),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 36.0),
                     TextFormField(
                       controller: _usernameController,
                       decoration: InputDecoration(
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 30.0),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent,
+                        primary: Colors.teal.shade400,
                         onPrimary: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
