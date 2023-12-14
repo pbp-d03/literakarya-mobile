@@ -8,7 +8,7 @@ import 'package:literakarya_mobile/notes/screens/form_notes.dart';
 import 'package:literakarya_mobile/notes/screens/edit_notes.dart'; // Import your edit page
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
- import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 
 class NotesPage extends StatefulWidget {
   const NotesPage({Key? key});
@@ -22,7 +22,7 @@ class _NotesPageState extends State<NotesPage> {
 
   Future<void> fetchNote(request) async {
     try {
-      var data = await request.get('http://127.0.0.1:8000/notes/get-note/');
+      var data = await request.get('https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/get-note/');
       List<Note> listNote = [];
       for (var d in data) {
         if (d != null) {
@@ -39,7 +39,7 @@ class _NotesPageState extends State<NotesPage> {
 
   Future<void> deleteNote(int noteId, CookieRequest request) async {
     try {
-      final Uri url = Uri.parse('http://127.0.0.1:8000/notes/delete-note-flutter/$noteId/');
+      final Uri url = Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/delete-note-flutter/$noteId/');
       final response = await http.delete(url);
       if (response.statusCode == 204) {
         print('Note deleted successfully');
@@ -169,10 +169,6 @@ class _NotesPageState extends State<NotesPage> {
                               int idNote = notes[index].pk;
                               await deleteNote(idNote, request);
                             
-                            
-                            // final response = await request.deleteNote(
-                            //     "http://127.0.0.1:8000/notes/delete-note-flutter/$idNote/",
-                            //     jsonEncode(<String, String>{
                                 ;
                               },
                             ),

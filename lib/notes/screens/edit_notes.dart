@@ -40,7 +40,7 @@ class _EditNotePageState extends State<EditNotePage> {
   }
 
   Future<void> _fetchBookTitles() async {
-    final url = 'http://127.0.0.1:8000/books/api/';
+    final url = 'https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/api/';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -183,7 +183,7 @@ class _EditNotePageState extends State<EditNotePage> {
                     if (_formKey.currentState!.validate()) {
                       try {
                         final response = await request.postJson(
-                          "http://127.0.0.1:8000/notes/edit-note-flutter/$idNote/",
+                          "https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/edit-note-flutter/$idNote/",
                           jsonEncode(<String, String>{
                             'judul_catatan' : _judulCatatan,
                             'judul_buku': _judulBuku,
