@@ -29,7 +29,7 @@ class _NoteFormPageState extends State<NoteFormPage> {
   }
 
   Future<void> _fetchBookTitles() async {
-    final url = 'https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/api/';
+    final url = 'http://127.0.0.1:8000/books/api/';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -197,7 +197,7 @@ class _NoteFormPageState extends State<NoteFormPage> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       final response = await request.postJson(
-                          "https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/create-flutter/",
+                          "http://127.0.0.1:8000/notes/create-flutter/",
                           jsonEncode(<String, String>{
                             'judul_catatan' : _judulCatatan,
                             'judul_buku': _judulBuku,

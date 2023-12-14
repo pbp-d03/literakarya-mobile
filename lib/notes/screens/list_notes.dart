@@ -22,7 +22,7 @@ class _NotesPageState extends State<NotesPage> {
 
   Future<void> fetchNote(request) async {
     try {
-      var data = await request.get('https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/get-note/');
+      var data = await request.get('http://127.0.0.1:8000/notes/get-note/');
       List<Note> listNote = [];
       for (var d in data) {
         if (d != null) {
@@ -39,9 +39,9 @@ class _NotesPageState extends State<NotesPage> {
 
   Future<void> deleteNote(int noteId, CookieRequest request) async {
     try {
-      final Uri url = Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/delete-note-flutter/$noteId/');
+      final Uri url = Uri.parse('http://127.0.0.1:8000/notes/delete-note-flutter/$noteId/');
       final response = await http.delete(url);
-      if (response.statusCode == 204) { // Assuming 204 is used for successful deletion
+      if (response.statusCode == 204) {
         print('Note deleted successfully');
         setState(() {
           notes.removeWhere((note) => note.pk == noteId);
@@ -62,6 +62,10 @@ class _NotesPageState extends State<NotesPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       fetchNote(Provider.of<CookieRequest>(context, listen: false));
     });
+  }
+
+  void refreshNotesList() {
+    fetchNote(Provider.of<CookieRequest>(context, listen: false));
   }
 
   @override
@@ -146,23 +150,30 @@ class _NotesPageState extends State<NotesPage> {
                           children: [
                             IconButton(
                               icon: Icon(Icons.edit, color: Colors.blue),
-                              onPressed: () {
-                                Navigator.push(
+                              onPressed: () async {
+                                final result = await Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => EditNotePage(note: notes[index]),
                                   ),
                                 );
+                                                  // Check if the note was updated and refresh the list
+                                if (result == true) {
+                                  refreshNotesList();
+                                }
                               },
                             ),
                             IconButton(
                               icon: Icon(Icons.delete, color: Colors.red),
                               onPressed: () async {
                               int idNote = notes[index].pk;
-                            final response = await request.postJson(
-                                "https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/delete-note-flutter/$idNote/",
-                                jsonEncode(<String, String>{
-                                }));
+                              await deleteNote(idNote, request);
+                            
+                            
+                            // final response = await request.deleteNote(
+                            //     "http://127.0.0.1:8000/notes/delete-note-flutter/$idNote/",
+                            //     jsonEncode(<String, String>{
+                                ;
                               },
                             ),
                           ],

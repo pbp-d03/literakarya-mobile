@@ -40,7 +40,7 @@ class _EditNotePageState extends State<EditNotePage> {
   }
 
   Future<void> _fetchBookTitles() async {
-    final url = 'https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/api/';
+    final url = 'http://127.0.0.1:8000/books/api/';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -181,31 +181,31 @@ class _EditNotePageState extends State<EditNotePage> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      final response = await request.postJson(
-                          "https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/edit-note-flutter/$idNote/",
+                      try {
+                        final response = await request.postJson(
+                          "http://127.0.0.1:8000/notes/edit-note-flutter/$idNote/",
                           jsonEncode(<String, String>{
                             'judul_catatan' : _judulCatatan,
                             'judul_buku': _judulBuku,
                             'isi_catatan': _isiCatatan,
                             'penanda': _penanda,
                           }));
-                      if (response.statusCode == 200) {
-                        final responseData = json.decode(response.body);
-                        if (responseData['status'] == 'success') {
+
+                        if (response['status'] == 'success') {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("Catatan Anda berhasil diupdate."))
                           );
-                          Navigator.pop(context); // Kembali ke halaman sebelumnya (detail_notes.dart)
-                          Navigator.popAndPushNamed(context, '/list_notes'); // Perbarui halaman list_notes
+                          // Trigger a state refresh or navigate to the updated list
+                          Navigator.pop(context, true);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("Gagal, silakan coba lagi!"))
                           );
                         }
-                      } else {
-                        print('Failed to update note with status code: ${response.statusCode}');
+                      } catch (e) {
+                        print('Exception during update: $e');
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Gagal menghubungi server, silakan coba lagi!"))
+                          const SnackBar(content: Text("An error occurred, please try again."))
                         );
                       }
                     }
