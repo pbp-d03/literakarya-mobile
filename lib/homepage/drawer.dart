@@ -14,24 +14,21 @@ import 'package:provider/provider.dart';
 Drawer buildDrawer(BuildContext context) {
   final request = context.watch<CookieRequest>();
   return Drawer(
-      child: Container(
-    color: Colors.black,
+    child: Container(
+    color: Colors.teal.shade600,
     child: ListView(
       padding: const EdgeInsets.only(top: 60.0, left: 30.0),
       // menu navigasi
       children: [
         ListTile(
-          title:
-              const Text('Dashboard', style: TextStyle(color: Colors.yellow)),
+          title: const Text('Dashboard', style: TextStyle(color: Colors.yellow)),
           leading: const Icon(Icons.house, color: Colors.yellow),
           onTap: () {
             // Route menu ke counter
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const MyHomePage(
-                      // title: "LiteraKarya",
-                      )),
+              MaterialPageRoute( builder: (context) => const MyHomePage(
+              )),
             );
           },
         ),

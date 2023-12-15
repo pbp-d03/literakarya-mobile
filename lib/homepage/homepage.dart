@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/book_page/screen/list_bookmark.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
@@ -25,9 +26,16 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text("Dashboard"),
           backgroundColor: Colors.teal,
-          leading: Container(
-            child: Image.asset("assets/images/logo_literakarya.png"),
-            padding: EdgeInsets.all(5.0),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Image.asset('assets/images/logo_literakarya.png'),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              );
+            },
           ),
           actions: [
             IconButton(
@@ -54,6 +62,7 @@ class MyHomePage extends StatelessWidget {
             ),
           ],
         ),
+        drawer: buildDrawer(context),
         bottomNavigationBar: CurvedNavigationBar(
           height: 50.0,
           backgroundColor: Colors.teal.shade100,
@@ -83,6 +92,7 @@ class MyHomePage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 _buildTopImageSection(),
+                _buildWelcomeSection(),
                 _buildDescriptionSection(),
                 _buildBookTitleSection(),
                 _buildImageSection(),
@@ -104,6 +114,21 @@ class MyHomePage extends StatelessWidget {
       child: Image.network(
         'https://iili.io/JuajsTv.png',
         fit: BoxFit.cover, // Mengatur agar gambar menyesuaikan kontainer tanpa kehilangan proporsi
+      ),
+    );
+  }
+
+    Widget _buildWelcomeSection() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Text(
+        'Selamat datang di LiteraKarya!',
+        style: TextStyle(
+          fontSize: 28, // Large font size
+          fontWeight: FontWeight.bold, // Bold text
+          color: Colors.teal.shade700, // Teal color
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }
@@ -210,7 +235,7 @@ Widget _buildViewMoreButton(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Lihat Lebih Banyak',
+              'Lihat Selengkapnya',
               style: TextStyle(
                 fontSize: 14, // Increase text size
               ),

@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/notes/models/note.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
@@ -81,111 +84,163 @@ class _NotesPageState extends State<NotesPage> {
         ),
         backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NoteFormPage(),
-                ),
-              );
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.add),
+        //     onPressed: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) => const NoteFormPage(),
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ],
       ),
       drawer: buildDrawer(context),
-      body: notes.isEmpty
-          ? const Center(
-              child: Text(
-                "Tidak ada catatan.",
-                style: TextStyle(color: Color.fromARGB(255, 38, 166, 154), fontSize: 20),
-              ),
-            )
-          : ListView.builder(
-              itemCount: notes.length,
-              itemBuilder: (_, index) => InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailNotePage(item: notes[index]),
-                    ),
-                  );
-                },
-                child: Card(
-                  color: Colors.teal.shade50,
-                  elevation: 0,
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // Adjust the border radius as needed
-                  ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${notes[index].fields.judulCatatan}",
-                              style: const TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text("Judul Buku : ${notes[index].fields.judulBuku}"),
-                            const SizedBox(height: 10),
-                            Text("Isi Catatan : ${notes[index].fields.isiCatatan}"),
-                            const SizedBox(height: 10),
-                             Text(
-                              "Penanda : ${notes[index].fields.penanda}",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color:   Color.fromARGB(255, 16, 131, 120), 
-                              ))
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (uname != "adminliterakarya")
-                              IconButton(
-                                icon: Icon(Icons.edit, color: Color.fromARGB(255, 38, 166, 154)),
-                                onPressed: () async {
-                                  final result = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EditNotePage(note: notes[index]),
-                                    ),
-                                  );
-                                if (result == true) {
-                                  refreshNotesList();
-                                }
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete, color: Colors.red),
-                              onPressed: () async {
-                              int idNote = notes[index].pk;
-                              await deleteNote(idNote, request);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+      
+      body: Column(
+        children: [
+          Align(
+          alignment: Alignment.topLeft,
+          // Button to add new note
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white, // Background color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15), // Less rounded corners
+                  side: BorderSide(color: Colors.teal), // Border berwarna teal
                 ),
               ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const NoteFormPage(),
+                  ),
+                );
+              },
+            child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.add,
+                    color: Colors.teal,
+                  ),
+                  SizedBox(width: 8), // Spasi antara ikon dan teks
+                  Text(
+                    'Tambah Catatan',
+                    style: TextStyle(
+                      color: Colors.teal.shade700,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
-    );
+          ),
+          ),
+          // Note list or no note text
+          Expanded(
+            child: notes.isEmpty
+              ? const Center(
+                  child: Text(
+                    "Tidak ada catatan.",
+                    style: TextStyle(color: Color.fromARGB(255, 38, 166, 154), fontSize: 20),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: notes.length,
+                  itemBuilder: (_, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailNotePage(item: notes[index]),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        color: Colors.teal.shade50,
+                        elevation: 0,
+                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${notes[index].fields.judulCatatan}",
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text("Judul Buku : ${notes[index].fields.judulBuku}"),
+                                  const SizedBox(height: 10),
+                                  Text("Isi Catatan : ${notes[index].fields.isiCatatan}"),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "Penanda : ${notes[index].fields.penanda}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color:   Color.fromARGB(255, 16, 131, 120), 
+                                    ))
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  if (uname != "adminliterakarya")
+                                    IconButton(
+                                      icon: Icon(Icons.edit, color: Color.fromARGB(255, 38, 166, 154)),
+                                      onPressed: () async {
+                                        final result = await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => EditNotePage(note: notes[index]),
+                                          ),
+                                        );
+                                      if (result == true) {
+                                        refreshNotesList();
+                                      }
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete, color: Colors.red),
+                                    onPressed: () async {
+                                    int idNote = notes[index].pk;
+                                    await deleteNote(idNote, request);
+                                    },
+                                  ),
+                          ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+          ),
+        ],
+      )
+      );
+
   }
 }
