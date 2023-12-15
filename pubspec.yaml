@@ -42,6 +42,7 @@ dependencies:
   url_launcher: ^6.0.9
   intl: ^0.17.0
   comment_box: ^0.0.18
+  curved_navigation_bar: ^1.0.3 #latest version
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +85,23 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-MediumItalic.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-BoldItalic.ttf
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins-BlackItalic.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins-Thin.ttf
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+
   # fonts:
   #   - family: Schyler
   #     fonts:

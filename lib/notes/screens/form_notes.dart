@@ -68,8 +68,12 @@ class _NoteFormPageState extends State<NoteFormPage> {
       drawer: buildDrawer(context),
       body: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+         child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+          child: ListView(
+            shrinkWrap: true, // Important to prevent ListView from expanding infinitely
+            children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
@@ -189,7 +193,7 @@ class _NoteFormPageState extends State<NoteFormPage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05), 
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.teal.shade400),
@@ -231,6 +235,7 @@ class _NoteFormPageState extends State<NoteFormPage> {
           ]),
         ),
       ),
+    )
     );
   }
 }
