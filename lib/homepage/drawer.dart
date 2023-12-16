@@ -9,6 +9,7 @@ import 'package:literakarya_mobile/homepage/homepage.dart';
 import 'package:literakarya_mobile/notes/screens/list_notes.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:literakarya_mobile/forum/screens/forum.dart';
 
 // merupakan sebuah Drawer yang digunakan untuk navigasi antar page
 Drawer buildDrawer(BuildContext context) {
@@ -87,6 +88,16 @@ Drawer buildDrawer(BuildContext context) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const NotesPage()));
+          }
+        ),
+        ListTile(
+          title: const Text('Forum', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.groups, color: Colors.white),
+          onTap: () {
+            // Route menu ke counter
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const ForumPage()));
           }
         )
       ],
