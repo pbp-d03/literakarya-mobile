@@ -295,7 +295,7 @@ Widget _buildImageDetail(String imageUrl, String title, String author, String ra
       {'title': 'Daftar buku', 'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...', 'color': Color.fromARGB(255, 255, 239, 205)},
       {'title': 'Personalisasi', 'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...', 'color': Colors.blue.shade100},
       {'title': 'Buku Saya', 'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...', 'color': Colors.green.shade100},
-      {'title': 'Forum', 'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...', 'color': const Color.fromARGB(255, 246, 223, 250)},
+      {'title': 'Forum', 'description': 'Berinteraksi dengan pengguna lainnya di dalam Forum. Komunitas kami penuh semangat untuk berdiskusi tentang berbagai judul buku maupun topik literasi umum.', 'color': const Color.fromARGB(255, 246, 223, 250)},
       {'title': 'Catatan', 'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...', 'color': Colors.orange.shade100},
       {'title': 'Rekomendasi', 'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...', 'color': const Color.fromARGB(255, 255, 209, 225)},
       {'title': 'E-Reading', 'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...', 'color': Colors.yellow.shade100},
