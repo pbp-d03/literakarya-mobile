@@ -60,17 +60,17 @@ class _RecommendationsPageState extends State<RecommendationsPage> {
   }
 
 void navigateAndRefresh() async {
-  final result = await Navigator.push(
+  await Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => FormRecommend()),
   );
 
-  if (result == true) {
-    setState(() {
-      futureRecommendations = fetchRecommendations();
-    });
-  }
+  // Refresh the recommendations after returning from the FormRecommend page
+  setState(() {
+    futureRecommendations = fetchRecommendations();
+  });
 }
+
 
  @override
 Widget build(BuildContext context) {
@@ -260,69 +260,69 @@ Widget build(BuildContext context) {
 
   Widget bookCard(Fields fields) {
   // This widget builds an individual card for a book.
-  return Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    elevation: 5,
-    color: Color.fromARGB(255, 61, 109, 121),
-    margin: const EdgeInsets.all(8),
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10), // Match the card's border radius
-            child: Image.network(
-              fields.gambarBuku,
-              fit: BoxFit.cover,
-              height: 100, // Fixed height for the image
-              width: double.infinity,
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 5,
+      color: Color.fromARGB(255, 61, 109, 121),
+      margin: const EdgeInsets.all(8),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10), // Match the card's border radius
+              child: Image.network(
+                fields.gambarBuku,
+                fit: BoxFit.cover,
+                height: 100, // Fixed height for the image
+                width: double.infinity,
+              ),
             ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            fields.judulBuku,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+            SizedBox(height: 8),
+            Text(
+              fields.judulBuku,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          SizedBox(height: 4),
-          Text(
-            fields.genreBuku,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white,
+            SizedBox(height: 4),
+            Text(
+              'Genre: ${fields.genreBuku}',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          SizedBox(height: 4),
-          Text(
-            'Rating: ${fields.nilaiBuku}',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white,
+            SizedBox(height: 4),
+            Text(
+              'Rating: ${fields.nilaiBuku}',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+              ),
             ),
-          ),
-          SizedBox(height: 4),
-          Text(
-            fields.isiRekomendasi,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white,
+            SizedBox(height: 4),
+            Text(
+              'Review: \n${fields.isiRekomendasi}',
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget bookRecommendationView() {
     return Column(
@@ -390,4 +390,3 @@ Widget build(BuildContext context) {
   }
 
 }
-
