@@ -18,7 +18,6 @@ class ForumPage extends StatefulWidget {
 
 class _ForumPageState extends State<ForumPage> {
   Future<List<Post>> fetchPost() async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
         'https://literakarya-d03-tk.pbp.cs.ui.ac.id/forum/json/all-posts/');
     var response = await http.get(
@@ -131,8 +130,8 @@ class _ForumPageState extends State<ForumPage> {
                                           ? "Literasi umum"
                                           : "${snapshot.data![index].fields.topic}",
                                     ),
-                                    const SizedBox(height: 10),
-                                    Text("${snapshot.data![index].fields.message}"),
+                                    // const SizedBox(height: 10),
+                                    // Text("${snapshot.data![index].fields.message}"),
                                   ],
                                 ),
                               ),
