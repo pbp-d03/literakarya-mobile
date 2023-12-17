@@ -60,7 +60,7 @@ Drawer buildDrawer(BuildContext context) {
         ),
         ListTile(
           title: const Text('Profile', style: TextStyle(color: Colors.white)),
-          leading: const Icon(Icons.bookmarks_rounded, color: Colors.white),
+          leading: const Icon(Icons.account_circle, color: Colors.white),
           onTap: () {
             Navigator.pushReplacement(
               context,
