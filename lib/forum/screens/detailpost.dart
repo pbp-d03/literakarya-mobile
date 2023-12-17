@@ -44,6 +44,21 @@ class _DetailPostPageState extends State<DetailPostPage> {
     }
     return list_reply.toList();
   }
+
+  Future<void> deleteReply(int replyId, CookieRequest request) async {
+      final Uri url = Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/forum/delete-reply-flutter/$replyId/');
+      final response = await http.delete(url);
+      if (response.statusCode == 204) {
+        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DetailPostPage(item:widget.item)),
+        );
+      } else {
+        print('Failed to delete reply, status code: ${response.statusCode}');
+      }
+    }
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -210,8 +225,26 @@ class _DetailPostPageState extends State<DetailPostPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 10),
-                                    Text("${snapshot.data![index].fields.user}", style: TextStyle(color: Color.fromARGB(255, 14, 71, 185)),),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${snapshot.data![index].fields.user}",
+                                          style: const TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        if (LoginPage.uname == snapshot.data![index].fields.user)
+                                          IconButton(
+                                            icon: Icon(Icons.delete),
+                                            onPressed: () async {
+                                              int idReply = snapshot.data![index].pk;
+                                              await deleteReply(idReply, request);
+                                            },
+                                          ),
+                                      ],
+                                    ),
                                     const SizedBox(height: 10),
                                     Text("${snapshot.data![index].fields.body}"),
                                     const SizedBox(height: 10),

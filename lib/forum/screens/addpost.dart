@@ -38,6 +38,7 @@ class _AddPostPageState extends State<AddPostPage> {
         setState(() {
           _books = books.map((book) => book['fields']['nama_buku'].toString()).toList();
           _books.sort(); 
+          _books.insert(0, "Literasi umum");
         });
       } else {
         print('Failed to load book titles with status code: ${response.statusCode}');
