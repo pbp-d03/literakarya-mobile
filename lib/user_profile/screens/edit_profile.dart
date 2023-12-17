@@ -257,66 +257,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 },
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: TextFormField(
-            //     initialValue: _favoriteGenre1,
-            //     decoration: InputDecoration(
-            //       hintText: "Favorite genre 1",
-            //       labelText: "Favorite genre 1",
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(5.0),
-            //       ),
-            //     ),
-            //     onChanged: (value) => _favoriteGenre1 = value,
-            //     validator: (value) {
-            //       if (value == null || value.isEmpty) {
-            //         return "Favorite genre 1 tidak boleh kosong!";
-            //       }
-            //       return null;
-            //     },
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: TextFormField(
-            //     initialValue: _favoriteGenre2,
-            //     decoration: InputDecoration(
-            //       hintText: "Favorite genre 2",
-            //       labelText: "Favorite genre 2",
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(5.0),
-            //       ),
-            //     ),
-            //     onChanged: (value) => _favoriteGenre2 = value,
-            //     validator: (value) {
-            //       if (value == null || value.isEmpty) {
-            //         return "Favorite genre 2 tidak boleh kosong!";
-            //       }
-            //       return null;
-            //     },
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: TextFormField(
-            //     initialValue: _favoriteGenre3,
-            //     decoration: InputDecoration(
-            //       hintText: "Favorite genre 3",
-            //       labelText: "Favorite genre 3",
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(5.0),
-            //       ),
-            //     ),
-            //     onChanged: (value) => _favoriteGenre3 = value,
-            //     validator: (value) {
-            //       if (value == null || value.isEmpty) {
-            //         return "Favorite genre 3 tidak boleh kosong!";
-            //       }
-            //       return null;
-            //     },
-            //   ),
-            // ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(

@@ -5,6 +5,7 @@ import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/book_page/screen/list_bookmark.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
+import 'package:literakarya_mobile/user_profile/screens/recommend_byfavgenre.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -74,6 +75,7 @@ class MyHomePage extends StatelessWidget {
                   _buildBookTitleSection(),
                   _buildImageSection(),
                   _buildViewMoreButton(context),
+                  _buildForYouButton(context),
                   _buildFeatureTitleSection(),
                   _buildFeatureSection(),
                   // Other sections...
@@ -225,6 +227,41 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
+  Widget _buildForYouButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 16.0, bottom: 16.0),
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const RecommendForYou()),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.teal, // Button color
+            onPrimary: Colors.white, // Text color
+            padding: EdgeInsets.all(16.0), // Add padding around the button
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Rekomendasi untukmu',
+                style: TextStyle(
+                  fontSize: 14, // Increase text size
+                ),
+              ),
+              SizedBox(width: 8), // Add spacing between text and icon
+              Icon(Icons.arrow_forward_ios_rounded,
+                  size: 18), // Increase icon size
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildImageDetail(
       String imageUrl, String title, String author, String rating) {
     return Padding(
@@ -278,7 +315,7 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Personalisasi',
         'description':
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+            'Isi profilmu dan dapatkan rekomendasi buku dari kami',
         'color': Colors.blue.shade100
       },
       {
