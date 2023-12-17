@@ -5,9 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/forum/models/post.dart';
+import 'package:literakarya_mobile/forum/screens/addpost.dart';
 import 'package:literakarya_mobile/forum/screens/detailpost.dart';
 // import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class ForumPage extends StatefulWidget {
   const ForumPage({Key? key}) : super(key: key);
@@ -37,9 +40,23 @@ class _ForumPageState extends State<ForumPage> {
     }
     return list_post.reversed.toList();
   }
+  Future<void> deletePost(int postId, CookieRequest request) async {
+      final Uri url = Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/forum/delete-post-flutter/$postId/');
+      final response = await http.delete(url);
+      if (response.statusCode == 204) {
+        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ForumPage()),
+        );
+      } else {
+        print('Failed to delete post, status code: ${response.statusCode}');
+      }
+    }
 
   @override
   Widget build(BuildContext context) {
+  final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Forum'),
@@ -47,7 +64,12 @@ class _ForumPageState extends State<ForumPage> {
       drawer: buildDrawer(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here...
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddPostPage(),
+            ),
+          );
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.green,
@@ -103,12 +125,25 @@ class _ForumPageState extends State<ForumPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "${snapshot.data![index].fields.subject}",
-                                      style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${snapshot.data![index].fields.subject}",
+                                          style: const TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        if (LoginPage.uname == snapshot.data![index].fields.user)
+                                          IconButton(
+                                            icon: Icon(Icons.delete),
+                                            onPressed: () async {
+                                              int idPost = snapshot.data![index].pk;
+                                              await deletePost(idPost, request);
+                                            },
+                                          ),
+                                      ],
                                     ),
                                     const SizedBox(height: 10),
                                     RichText(
