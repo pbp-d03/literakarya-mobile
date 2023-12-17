@@ -50,15 +50,13 @@ class _SingleBookState extends State<SingleBook> {
         backgroundColor: Colors.green[100],
         appBar: AppBar(
           title: Text("Detail"),
+          backgroundColor: Colors.teal.shade400,
         ),
         drawer: buildDrawer(context),
         body: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [Colors.greenAccent, Colors.blueGrey]),
+                color: Colors.teal.shade200,
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.all(Radius.circular(0.0))),
             padding: const EdgeInsets.only(
@@ -91,6 +89,9 @@ class _SingleBookState extends State<SingleBook> {
                   const SizedBox(height: 20),
                   // Add BOOKMARK
                   ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 250, 250)),
                       onPressed: () async {
                         if (bookmark == "AddBookmark") {
                           final response = await request.postJson(

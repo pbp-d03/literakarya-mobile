@@ -33,7 +33,7 @@ class _TestMeState extends State<TestMe> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Komen Book: ${judul}"),
-        backgroundColor: const Color.fromARGB(255, 30, 233, 125),
+        backgroundColor: Colors.teal.shade400,
       ),
       body: Container(
         child: CommentBox(
@@ -70,10 +70,11 @@ class _TestMeState extends State<TestMe> {
                                     height: 50.0,
                                     width: 50.0,
                                     decoration: new BoxDecoration(
-                                        color: Colors.blue,
+                                        color: Colors.teal,
                                         borderRadius: new BorderRadius.all(
                                             Radius.circular(50.0))),
                                     child: CircleAvatar(
+                                      backgroundColor: Colors.teal.shade200,
                                       radius: 50.0,
                                       child: Icon(Icons.person,
                                           size: 40.0, color: Colors.white),
@@ -127,6 +128,8 @@ class _TestMeState extends State<TestMe> {
                   }
                 }
               }),
+          userImage: CommentBox.commentImageParser(
+              imageURLorPath: "assets/images/logo_literakarya.png"),
           labelText: 'Write a comment...',
           errorText: 'Comment cannot be blank',
           withBorder: false,
@@ -147,7 +150,7 @@ class _TestMeState extends State<TestMe> {
           },
           formKey: formKey,
           commentController: commentController,
-          backgroundColor: const Color.fromARGB(255, 57, 233, 30),
+          backgroundColor: Colors.teal.shade200,
           textColor: Colors.white,
           sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
         ),
