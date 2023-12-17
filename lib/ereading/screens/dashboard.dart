@@ -1,47 +1,65 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:literakarya_mobile/authentication/login.dart';
 import 'dart:convert';
 import 'package:literakarya_mobile/ereading/models/ereading.dart';
+import 'package:literakarya_mobile/ereading/screens/form_ereading.dart';
+import 'package:literakarya_mobile/ereading/widgets/ereading_card.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
 
 class EreadingUserPage extends StatefulWidget {
-  const EreadingUserPage({Key? key}) : super(key: key);
+  const EreadingUserPage({super.key});
 
   @override
-  _EreadingUserPageState createState() => _EreadingUserPageState();
+  State<EreadingUserPage> createState() => _EreadingUserPageState();
 }
 
 class _EreadingUserPageState extends State<EreadingUserPage> {
   Future<List<Ereading>> fetchEreading() async {
     String uname = LoginPage.uname;
-
-    var url = Uri.parse('http://localhost:8000/ereading/get-json/$uname/');
-    var response = await http.get(
-      url,
-      headers: {"Content-Type": "application/json"},
-    );
-
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    List<Ereading> listEreading = [];
-    for (var d in data) {
-      if (d != null) {
-        listEreading.add(Ereading.fromJson(d));
+    var url = Uri.parse(
+        'https://literakarya-d03-tk.pbp.cs.ui.ac.id/ereading/get-json/$uname/');
+    var response =
+        await http.get(url, headers: {"Content-Type": "application/json"});
+    if (response.statusCode == 200) {
+      var data = jsonDecode(utf8.decode(response.bodyBytes));
+      List<Ereading> listEreading = [];
+      if (data is List) {
+        for (var d in data) {
+          if (d != null) {
+            listEreading.add(Ereading.fromJson(d));
+          }
+        }
       }
+      return listEreading;
+    } else {
+      return [];
     }
-    return listEreading;
+  }
+
+  Future<void> deleteEreading(int index, List<Ereading> ereadings) async {
+    var url = Uri.parse(
+        'https://literakarya-d03-tk.pbp.cs.ui.ac.id/ereading/delete-ereading/');
+    var response =
+        await http.post(url, body: {'id': ereadings[index].pk.toString()});
+
+    if (!mounted) return;
+    if (response.statusCode == 201) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Ereading berhasil dihapus.')),
+      );
+      setState(() {});
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Terjadi kesalahan, silakan coba lagi.')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Ereading"),
-      ),
+      appBar: AppBar(title: const Text("Ereading")),
       drawer: buildDrawer(context),
       body: SafeArea(
         child: Padding(
@@ -57,7 +75,7 @@ class _EreadingUserPageState extends State<EreadingUserPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     "Hai ${LoginPage.uname}, yuk tambahkan koleksi bacaan digital kamu ke katalog pribadimu di LiteraKarya!",
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
@@ -65,87 +83,53 @@ class _EreadingUserPageState extends State<EreadingUserPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Card(
                 color: Colors.yellow,
                 elevation: 5,
-                child: Container(
+                child: SizedBox(
                   width: 200,
                   child: ListTile(
-                    title: Text('Add Ereading',
+                    title: const Text('Add Ereading',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold)),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EreadingFormPage(),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Expanded(
                 child: FutureBuilder(
                   future: fetchEreading(),
                   builder: (context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else if (snapshot.data == null ||
                         snapshot.data.length == 0) {
-                      return Center(
-                        child: Text(
-                          "Tidak ada Ereading yang tersimpan.",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      );
+                      return const Center(
+                          child: Text("Tidak ada Ereading yang tersimpan.",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)));
                     } else {
                       return ListView.builder(
                         itemCount: snapshot.data!.length,
                         itemBuilder: (_, index) {
-                          return Card(
-                            elevation: 5,
-                            margin: const EdgeInsets.all(8.0),
-                            color: snapshot.data![index].fields.state == 1
-                                ? Colors.lightGreen[100]
-                                : snapshot.data![index].fields.state == 2
-                                    ? Colors.orange[100]
-                                    : Colors.white,
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SizedBox(height: 3),
-                                  Text(
-                                    "${snapshot.data![index].fields.title}",
-                                    style: const TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Status: " +
-                                        (snapshot.data![index].fields.state == 0
-                                            ? "Bacaanmu sedang diperiksa oleh admin."
-                                            : snapshot.data![index].fields
-                                                        .state ==
-                                                    1
-                                                ? "Bacaanmu diterima dan selamat membaca!"
-                                                : "Bacaanmu ditolak oleh admin."),
-                                    style: const TextStyle(fontSize: 14.0),
-                                  ),
-                                  SizedBox(height: 3),
-                                  Divider(color: Colors.black),
-                                  Text(
-                                    "Last updated: ${DateFormat('dd/MM/yyyy | hh:mm:ss a').format(snapshot.data![index].fields.lastUpdated)}",
-                                    style: const TextStyle(fontSize: 14.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return EreadingCard(
+                              data: snapshot.data!,
+                              index: index,
+                              onDelete: deleteEreading);
                         },
                       );
                     }
