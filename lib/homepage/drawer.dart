@@ -92,16 +92,6 @@ Drawer buildDrawer(BuildContext context) {
               context,
               MaterialPageRoute(builder: (context) => const NotesPage()));
           }
-        ),
-        ListTile(
-          title: const Text('Rekomendasi', style: TextStyle(color: Colors.white)),
-          leading: const Icon(Icons.note, color: Colors.white),
-          onTap: () {
-            // Route menu ke counter
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => RecommendationsPage()));
-          }
         )
       ],
     ),
