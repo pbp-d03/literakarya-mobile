@@ -4,6 +4,7 @@ import 'package:literakarya_mobile/book_page/screen/list_bookmark.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/ereading/screens/admin_dashboard.dart';
 import 'package:literakarya_mobile/ereading/screens/dashboard.dart';
+import 'package:literakarya_mobile/recommendation/screens/recommend.dart';
 import 'package:literakarya_mobile/user_profile/screens/profile_page.dart';
 import 'package:literakarya_mobile/homepage/homepage.dart';
 import 'package:literakarya_mobile/notes/screens/list_notes.dart';
@@ -88,6 +89,16 @@ Drawer buildDrawer(BuildContext context) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const NotesPage()));
+          }
+        ),
+        ListTile(
+          title: const Text('Rekomendasi', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.note, color: Colors.white),
+          onTap: () {
+            // Route menu ke counter
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => RecommendationsPage()));
           }
         ),
         ListTile(
