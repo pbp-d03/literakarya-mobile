@@ -49,9 +49,14 @@ class _DetailPostPageState extends State<DetailPostPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here...
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     // builder: (context) => AddReplyPage(item: widget.item),
+          //   ),
+          // );
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.reply),
         backgroundColor: Colors.green,
       ),
         body: Container(

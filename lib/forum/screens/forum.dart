@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/forum/models/post.dart';
+import 'package:literakarya_mobile/forum/screens/addpost.dart';
 import 'package:literakarya_mobile/forum/screens/detailpost.dart';
 // import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
@@ -47,7 +48,12 @@ class _ForumPageState extends State<ForumPage> {
       drawer: buildDrawer(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here...
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddPostPage(),
+            ),
+          );
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.green,
