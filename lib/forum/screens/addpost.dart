@@ -19,26 +19,27 @@ class AddPostPage extends StatefulWidget {
 class _AddPostPageState extends State<AddPostPage> {
   final _formKey = GlobalKey<FormState>();
   String _subject = "";
-  List<String> _listGenre = []; // List to store genres
-  String _selectedGenre = "";
   List<String> _books = [];
   String _selectedBook = "";
   String _message = "";
 
-  Future<void> _fetchBookGenre() async {
+  @override
+  void initState() {
+    super.initState();
+    _fetchBookTitles(); // Fetch book titles on init
+  }
+
+  Future<void> _fetchBookTitles() async {
     final url = 'https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/api/';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         List<dynamic> books = json.decode(response.body);
         setState(() {
-          _listGenre = books
-              .map((book) => book['fields']['genre_1'].toString().toLowerCase())
-              .toSet()
-              .toList();
-          _listGenre.sort();
+          _books = books.map((book) => book['fields']['nama_buku'].toString()).toList();
+          _books.sort(); 
+          _books.insert(0, "Literasi umum");
         });
-        print(_listGenre);
       } else {
         print('Failed to load book titles with status code: ${response.statusCode}');
       }
@@ -47,12 +48,9 @@ class _AddPostPageState extends State<AddPostPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    print("_listGenre: $_listGenre");
-    print("_selectedGenre: $_selectedGenre");
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -64,7 +62,6 @@ class _AddPostPageState extends State<AddPostPage> {
         backgroundColor: const Color.fromARGB(255, 38, 166, 154),
         foregroundColor: Colors.white,
       ),
-      drawer: buildDrawer(context),
       body: Form(
         key: _formKey,
          child: SingleChildScrollView(
@@ -104,60 +101,15 @@ class _AddPostPageState extends State<AddPostPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: DropdownButtonFormField<String>(
-                value: _selectedGenre.isEmpty ? null : _selectedGenre,
+                value: _selectedBook.isEmpty ? null : _selectedBook,
                 decoration: InputDecoration(
-                  labelText: "Genre",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-              items: _listGenre.isEmpty
-                  ? [DropdownMenuItem<String>(value: null, child: Text('Genre'))]
-                  : _listGenre.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value.toLowerCase()), // Use Text(value.toLowerCase()) for case-insensitive comparison
-                      );
-                    }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _selectedGenre = newValue ?? '';
-                    _selectedBook = '';
-                  });
-                  print("_selectedGenre in onChanged: $_selectedGenre");
-                  fetchBook(_selectedGenre).then((books) {
-                    print("Books fetched: $books");
-                    setState(() {
-                      _books = books.map((book) => book.fields.namaBuku).toList();
-                    });
-                    print("_books after fetchBook: $_books");
-                  });
-                },
-                onSaved: (String? value) {
-                  setState(() {
-                    _selectedGenre = value!;
-                  });
-                },
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return "Genre tidak boleh kosong!";
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownButtonFormField<String>(
-                value: _selectedGenre.isEmpty ? null : _selectedGenre,
-                decoration: InputDecoration(
-                  labelText: "Topik",
+                  labelText: "Judul Buku",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
                 items: _books.isEmpty
-                    ? [DropdownMenuItem<String>(value: null, child: Text('Topik'))]
+                    ? [DropdownMenuItem<String>(value: null, child: Text('Judul Buku'))]
                     : _books.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -176,12 +128,12 @@ class _AddPostPageState extends State<AddPostPage> {
                 },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return "Genre tidak boleh kosong!";
+                    return "Judul buku tidak boleh kosong!";
                   }
                   return null;
                 },
               ),
-            ),        
+            ),  
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
@@ -221,7 +173,7 @@ class _AddPostPageState extends State<AddPostPage> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       final response = await request.postJson(
-                          "https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/create-flutter/",
+                          "https://literakarya-d03-tk.pbp.cs.ui.ac.id/forum/create-post-flutter/",
                           jsonEncode(<String, String>{
                             'subject' : _subject,
                             'topic': _selectedBook,
