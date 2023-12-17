@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/forum/models/post.dart';
 import 'package:literakarya_mobile/forum/models/reply.dart';
+import 'package:literakarya_mobile/forum/screens/forum.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,8 @@ class DetailPostPage extends StatefulWidget {
   _DetailPostPageState createState() => _DetailPostPageState();
 }
 class _DetailPostPageState extends State<DetailPostPage> {
+  String _body = "";
+  final _formKey = GlobalKey<FormState>();
   Future<List<Reply>> fetchReply() async {
     var url = Uri.parse(
         'https://literakarya-d03-tk.pbp.cs.ui.ac.id/forum/json/all-replies/${widget.item.pk}');
@@ -43,21 +46,10 @@ class _DetailPostPageState extends State<DetailPostPage> {
   }
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Forum'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     // builder: (context) => AddReplyPage(item: widget.item),
-          //   ),
-          // );
-        },
-        child: Icon(Icons.reply),
-        backgroundColor: Colors.green,
       ),
         body: Container(
           decoration: BoxDecoration(
@@ -106,6 +98,83 @@ class _DetailPostPageState extends State<DetailPostPage> {
                         style: TextStyle(fontSize: 12),
                       ),                                                                                                              
                     ],
+                  ),                
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 9, 13, 93), // Set the color to orange
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Ketik balasan disini...',
+                            labelStyle: TextStyle(color: Colors.white),
+                            enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            ),
+                            errorStyle: TextStyle(color: Colors.white),
+                          ),
+                          style: TextStyle(color: Colors.white),
+                          onChanged: (String? value) {
+                            setState(() {
+                              _body = value!;
+                            });
+                          },
+                          onSaved: (String? value) {
+                            setState(() {
+                              _body = value!;
+                            });
+                          },
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return "Balasan masih kosong!";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: ElevatedButton(
+                            onPressed: () async {                            
+                              if (_formKey.currentState!.validate()) {
+
+                                final response = await request.postJson(
+                                    "https://literakarya-d03-tk.pbp.cs.ui.ac.id/forum/create-reply-flutter/",
+                                    jsonEncode(<String, String>{
+                                      'post_id' : widget.item.pk.toString(),
+                                      'body': _body,
+                                    }));
+                                if (response['status'] == 'success') {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text("Pesan Anda berhasil diunggah."),
+                                  ));
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => DetailPostPage(item:widget.item)),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text("Gagal, silakan coba lagi!"),
+                                  ));
+                                }
+                              }
+                            },
+                            child: Text('Kirim'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(

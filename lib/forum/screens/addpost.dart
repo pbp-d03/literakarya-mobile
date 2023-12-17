@@ -120,6 +120,11 @@ class _AddPostPageState extends State<AddPostPage> {
                     _selectedBook = newValue ?? '';
                   });
                 },
+                onSaved: (String? value) {
+                  setState(() {
+                    _selectedBook = value!;
+                  });
+                },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return "Judul buku tidak boleh kosong!";
@@ -167,7 +172,7 @@ class _AddPostPageState extends State<AddPostPage> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       final response = await request.postJson(
-                          "https://literakarya-d03-tk.pbp.cs.ui.ac.id/notes/create-flutter/",
+                          "https://literakarya-d03-tk.pbp.cs.ui.ac.id/forum/create-post-flutter/",
                           jsonEncode(<String, String>{
                             'subject' : _subject,
                             'topic': _selectedBook,
