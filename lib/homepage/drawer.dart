@@ -5,6 +5,7 @@ import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/ereading/screens/admin_dashboard.dart';
 import 'package:literakarya_mobile/ereading/screens/dashboard.dart';
 import 'package:literakarya_mobile/recommendation/screens/recommend.dart';
+import 'package:literakarya_mobile/user_profile/screens/all_account.dart';
 import 'package:literakarya_mobile/user_profile/screens/profile_page.dart';
 import 'package:literakarya_mobile/homepage/homepage.dart';
 import 'package:literakarya_mobile/notes/screens/list_notes.dart';
@@ -64,7 +65,10 @@ Drawer buildDrawer(BuildContext context) {
           onTap: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => ProfilePage()),
+              MaterialPageRoute(
+                builder: (context) => LoginPage.uname == "adminliterakarya"
+                  ? const AllAccountPage() 
+                  : const ProfilePage()),
             );
           },
         ),

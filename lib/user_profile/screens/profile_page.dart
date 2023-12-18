@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:literakarya_mobile/user_profile/models/profile.dart';
 import 'package:literakarya_mobile/user_profile/screens/edit_profile.dart';
-import 'package:literakarya_mobile/user_profile/screens/profile_form.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +47,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
     final uname = LoginPage.uname;
     return Scaffold(
       appBar: AppBar(
@@ -75,7 +71,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       Icon(
                         Icons.account_circle,
                         size: 200.0,
-                        color: Colors.black,
                       ),
                       const SizedBox(height: 14.0),
                       Text(
@@ -89,9 +84,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.teal.shade50,
+                          borderRadius: BorderRadius.circular(12),
                         ),
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
@@ -101,7 +95,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               "Full Name: ${profiles[index].fields.firstName} ${profiles[index].fields.lastName}",
                               style: const TextStyle(
                                 fontSize: 16.0,
-                                color: Color.fromARGB(221, 64, 64, 64),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -109,7 +102,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               "Bio: ${profiles[index].fields.bio}",
                               style: const TextStyle(
                                 fontSize: 16.0,
-                                color: Color.fromARGB(221, 64, 64, 64),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -117,7 +109,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               "Address: ${profiles[index].fields.address}",
                               style: const TextStyle(
                                 fontSize: 16.0,
-                                color: Color.fromARGB(221, 64, 64, 64),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -125,7 +116,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               "Favorite Genres: ${profiles[index].fields.favoriteGenre1}, ${profiles[index].fields.favoriteGenre2}, ${profiles[index].fields.favoriteGenre3}",
                               style: const TextStyle(
                                 fontSize: 16.0,
-                                color: Color.fromARGB(221, 64, 64, 64),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -135,6 +125,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(height: 20),
                       // Edit Profile Button
                       ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.teal.shade400),
+                        ),
                         onPressed: () async {
                           final result = await Navigator.push(
                             context,
@@ -146,7 +139,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             refreshProfileList();
                           }
                         },
-                        child: Text('Edit Profile'),
+                        child: Text(
+                          'Edit Profile',
+                          style: TextStyle(color: Colors.white),
+                          ),
+                        
                       ),
                     ],
                   ),
