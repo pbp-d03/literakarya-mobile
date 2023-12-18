@@ -59,7 +59,14 @@ class _EreadingUserPageState extends State<EreadingUserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Ereading")),
+      appBar: AppBar(
+        title: const Text(
+          'Ereading',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.teal.shade400,
+        foregroundColor: Colors.white,
+      ),
       drawer: buildDrawer(context),
       body: SafeArea(
         child: Padding(
@@ -68,24 +75,23 @@ class _EreadingUserPageState extends State<EreadingUserPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Card(
-                color: Colors.black,
+                color: Colors.teal.shade100,
                 elevation: 5,
-                child: Container(
-                  width: double.infinity,
+                child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     "Hai ${LoginPage.uname}, yuk tambahkan koleksi bacaan digital kamu ke katalog pribadimu di LiteraKarya!",
                     style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
+                        fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.justify,
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               Card(
-                color: Colors.yellow,
+                color: Colors.white,
                 elevation: 5,
                 child: SizedBox(
                   width: 200,
@@ -93,7 +99,7 @@ class _EreadingUserPageState extends State<EreadingUserPage> {
                     title: const Text('Add Ereading',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold)),
+                            color: Colors.teal, fontWeight: FontWeight.bold)),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -117,11 +123,14 @@ class _EreadingUserPageState extends State<EreadingUserPage> {
                     } else if (snapshot.data == null ||
                         snapshot.data.length == 0) {
                       return const Center(
-                          child: Text("Tidak ada Ereading yang tersimpan.",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold)));
+                        child: Text(
+                          "Tidak ada Ereading yang tersimpan.",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                      );
                     } else {
                       return ListView.builder(
                         itemCount: snapshot.data!.length,

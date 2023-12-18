@@ -307,28 +307,28 @@ class MyHomePage extends StatelessWidget {
   Widget _buildFeatureSection() {
     List<Map<String, dynamic>> features = [
       {
-        'title': 'Daftar buku',
+        'title': 'Buku Saya',
         'description':
-            'Menampilkan daftar dari berbagai buku bacaan dalam negeri maupun luar negeri, lengkap dengan detail dari masing-masing buku dan fitur searchbar',
+            'Buku-buku pilihan yang ingin dibaca kemudian hari dapat ditandai dulu di fitur ini.',
+        'color': Colors.green.shade100
+      },
+      {
+        'title': 'Daftar Buku',
+        'description':
+            'Menampilkan daftar dari berbagai buku bacaan dalam negeri maupun luar negeri, lengkap dengan detail dari masing-masing buku dan fitur searchbar.',
         'color': Color.fromARGB(255, 255, 239, 205)
       },
       {
         'title': 'Personalisasi',
         'description':
-            'Isi profilmu dan dapatkan rekomendasi buku dari kami',
+            'Isi profilmu dan dapatkan rekomendasi buku dari kami.',
         'color': Colors.blue.shade100
       },
-      {
-        'title': 'Buku Saya',
+            {
+        'title': 'Ereading',
         'description':
-            'Buku-buku pilihan yang ingin dibaca kemudian hari dapat ditandai dulu di fitur ini',
-        'color': Colors.green.shade100
-      },
-      {
-        'title': 'Forum',
-        'description':
-            'Berinteraksi dengan pengguna lainnya di dalam Forum. Komunitas kami penuh semangat untuk berdiskusi tentang berbagai judul buku maupun topik literasi umum.',
-        'color': const Color.fromARGB(255, 246, 223, 250)
+            'Tambahkan koleksi bacaan digital milikmu dengan fitur Ereading.',
+        'color': Colors.yellow.shade100
       },
       {
         'title': 'Catatan',
@@ -343,10 +343,10 @@ class MyHomePage extends StatelessWidget {
         'color': const Color.fromARGB(255, 255, 209, 225)
       },
       {
-        'title': 'E-Reading',
+        'title': 'Forum',
         'description':
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-        'color': Colors.yellow.shade100
+            'Berinteraksi dengan pengguna lainnya di dalam Forum. Komunitas kami penuh semangat untuk berdiskusi tentang berbagai judul buku maupun topik literasi umum.',
+        'color': const Color.fromARGB(255, 246, 223, 250)
       },
     ];
 
