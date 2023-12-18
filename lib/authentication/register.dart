@@ -104,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             return 'Konfirmasi Password tidak boleh kosong';
                           }
                           if (value != _passwordController.text) {
-                            return 'Passwords do not match';
+                            return 'Password tidak cocok';
                           }
                           return null;
                         },

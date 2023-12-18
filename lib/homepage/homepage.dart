@@ -183,7 +183,7 @@ class MyHomePage extends StatelessWidget {
             'J.R.R. Tolkien'
           ];
 
-          List<String> ratings = ['4.5/5', '4.7/5', '3.8/5', '4.2/5', '4.0/5'];
+          List<String> ratings = ['4.41/5', '3.99/5', '3.88/5', '3.89/5', '4.28/5'];
 
           return _buildImageDetail(
               imageUrls[index], titles[index], authors[index], ratings[index]);
@@ -333,7 +333,7 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Catatan',
         'description':
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+            'Buat catatanmu untuk mengingat berbagai informasi terkait bacaan.',
         'color': Colors.orange.shade100
       },
       {

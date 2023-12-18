@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       child: const Text(
-                        'Create New Account',
+                        'Buat Akun Baru',
                         style: TextStyle(
                           fontSize: 17,
                           color: Colors.black,

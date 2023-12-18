@@ -9,7 +9,7 @@ import 'package:literakarya_mobile/notes/models/note.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
 import 'package:literakarya_mobile/notes/screens/detail_notes.dart';
 import 'package:literakarya_mobile/notes/screens/form_notes.dart';
-import 'package:literakarya_mobile/notes/screens/edit_notes.dart'; // Import your edit page
+import 'package:literakarya_mobile/notes/screens/edit_notes.dart'; 
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -84,19 +84,6 @@ class _NotesPageState extends State<NotesPage> {
         ),
         backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.add),
-        //     onPressed: () {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) => const NoteFormPage(),
-        //         ),
-        //       );
-        //     },
-        //   ),
-        // ],
       ),
       drawer: buildDrawer(context),
       
@@ -109,10 +96,10 @@ class _NotesPageState extends State<NotesPage> {
             padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.white, // Background color
+                primary: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // Less rounded corners
-                  side: BorderSide(color: Colors.teal), // Border berwarna teal
+                  borderRadius: BorderRadius.circular(15), 
+                  side: BorderSide(color: Colors.teal), 
                 ),
               ),
               onPressed: () {
