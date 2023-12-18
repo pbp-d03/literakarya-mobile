@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/book_page/model/books.dart';
 import 'package:literakarya_mobile/book_page/screen/onebuku.dart';
-import 'package:literakarya_mobile/book_page/utils/fetchbook.dart';
-import 'package:literakarya_mobile/book_page/utils/fetchbookmark.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
 import 'package:http/http.dart' as http;
-import 'package:literakarya_mobile/authentication/login.dart';
 import 'dart:convert';
-
 import 'package:literakarya_mobile/user_profile/models/profile.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
