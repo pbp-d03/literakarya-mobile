@@ -16,7 +16,6 @@ class EreadingCard extends StatelessWidget {
 
   Future<void> _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
-      // use canLaunchUrl instead of canLaunch
       await launchUrl(Uri.parse(url));
     } else {
       throw 'Could not launch $url';
@@ -29,150 +28,187 @@ class EreadingCard extends StatelessWidget {
       elevation: 5,
       margin: const EdgeInsets.all(8.0),
       color: data[index].fields.state == 1
-          ? Colors.lightGreen[100]
+          ? Colors.teal[50]
           : data[index].fields.state == 2
-              ? Colors.orange[100]
-              : Colors.white,
+              ? Colors.orange[50]
+              : Colors.grey[200],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Container(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             if (data[index].fields.state == 0) ...[
-              const SizedBox(height: 3),
-              Text(
-                "${data[index].fields.title}",
-                style: const TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.bold),
-              ),
-              const Text(
-                "Status: Bacaanmu akan diperiksa oleh admin.",
-                style: TextStyle(fontSize: 14.0),
-              ),
-              const Divider(color: Colors.black),
-              Text(
-                "Last updated: ${DateFormat('dd/MM/yyyy | HH:mm:ss').format(data[index].fields.lastUpdated)}",
-                style: const TextStyle(fontSize: 14.0),
-              ),
-              const Divider(color: Colors.black),
-              ElevatedButton(
-                onPressed: () => onDelete(index, data),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),
-                child: const Text(
-                  'Delete',
-                  style: TextStyle(color: Colors.red),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        "${data[index].fields.title}",
+                        style: const TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Divider(color: Colors.black),
+                    const Text(
+                      "Status: Bacaanmu sedang diperiksa oleh admin.",
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Last Updated: ${DateFormat('dd/MM/yyyy | HH:mm:ss').format(data[index].fields.lastUpdated)}",
+                    ),
+                    const Divider(color: Colors.black),
+                    const SizedBox(height: 12),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () => onDelete(index, data),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        child: const Text(
+                          'Delete',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
             if (data[index].fields.state == 2) ...[
-              const SizedBox(height: 3),
-              Text(
-                "${data[index].fields.title}",
-                style: const TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.bold),
-              ),
-              const Text(
-                "Status: Bacaanmu ditolak oleh admin.",
-                style: TextStyle(fontSize: 14.0),
-              ),
-              const SizedBox(height: 3),
-              const Divider(color: Colors.black),
-              Text(
-                "Last updated: ${DateFormat('dd/MM/yyyy | HH:mm:ss').format(data[index].fields.lastUpdated)}",
-                style: const TextStyle(fontSize: 14.0),
-              ),
-              const Divider(color: Colors.black),
-              ElevatedButton(
-                onPressed: () => onDelete(index, data),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),
-                child: const Text(
-                  'Delete',
-                  style: TextStyle(color: Colors.red),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        "${data[index].fields.title}",
+                        style: const TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Divider(color: Colors.black),
+                    const Text("Status: Bacaanmu ditolak oleh admin."),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Last Updated: ${DateFormat('dd/MM/yyyy | HH:mm:ss').format(data[index].fields.lastUpdated)}",
+                    ),
+                    const Divider(color: Colors.black),
+                    const SizedBox(height: 12),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () => onDelete(index, data),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        child: const Text(
+                          'Delete',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
             if (data[index].fields.state == 1) ...[
-              const SizedBox(height: 3),
-              Text(
-                "${data[index].fields.title}",
-                style: const TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'Author: ${data[index].fields.author}',
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                'Description: ${data[index].fields.description}',
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 3),
-              const Divider(color: Colors.black),
-              Text(
-                "Last updated: ${DateFormat('dd/MM/yyyy | HH:mm:ss').format(data[index].fields.lastUpdated)}",
-                style: const TextStyle(fontSize: 14.0),
-              ),
-              const Divider(color: Colors.black),
-              LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  if (constraints.maxWidth > 400) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        ElevatedButton(
-                          onPressed: () {
-                            _launchURL(data[index].fields.link);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                          ),
-                          child: const Text('Visit Link'),
-                        ),
-                        const SizedBox(width: 5),
-                        ElevatedButton(
-                          onPressed: () => onDelete(index, data),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                          ),
-                          child: const Text(
-                            'Delete',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        ElevatedButton(
-                          onPressed: () {
-                            _launchURL(data[index].fields.link);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                          ),
-                          child: const Text('Visit Link'),
-                        ),
-                        const SizedBox(height: 5),
-                        ElevatedButton(
-                          onPressed: () => onDelete(index, data),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                          ),
-                          child: const Text(
-                            'Delete',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                },
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        "${data[index].fields.title}",
+                        style: const TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Divider(color: Colors.black),
+                    Text('Author: ${data[index].fields.author}'),
+                    const SizedBox(height: 5),
+                    Text('Description: ${data[index].fields.description}'),
+                    const SizedBox(height: 5),
+                    Text(
+                      "Last Updated: ${DateFormat('dd/MM/yyyy | HH:mm:ss').format(data[index].fields.lastUpdated)}",
+                    ),
+                    const Divider(color: Colors.black),
+                    const SizedBox(height: 12),
+                    LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        if (constraints.maxWidth > 400) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              ElevatedButton(
+                                onPressed: () {
+                                  _launchURL(data[index].fields.link);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                ),
+                                child: const Text('Visit Link',
+                                    style: TextStyle(color: Colors.blue)),
+                              ),
+                              const SizedBox(width: 8),
+                              ElevatedButton(
+                                onPressed: () => onDelete(index, data),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                ),
+                                child: const Text(
+                                  'Delete',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _launchURL(data[index].fields.link);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                  ),
+                                  child: const Text('Visit Link',
+                                      style: TextStyle(color: Colors.blue)),
+                                ),
+                                const SizedBox(height: 8),
+                                ElevatedButton(
+                                  onPressed: () => onDelete(index, data),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                  ),
+                                  child: const Text(
+                                    'Delete',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ],

@@ -47,7 +47,7 @@ class _EreadingAdminPageState extends State<EreadingAdminPage> {
     if (!mounted) return;
     if (response.statusCode == 201) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Ereading sudah diterima.')),
+        const SnackBar(content: Text('Ereading diterima.')),
       );
       setState(() {});
     } else {
@@ -66,7 +66,7 @@ class _EreadingAdminPageState extends State<EreadingAdminPage> {
     if (!mounted) return;
     if (response.statusCode == 201) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Ereading sudah ditolak.')),
+        const SnackBar(content: Text('Ereading ditolak.')),
       );
       setState(() {});
     } else {
@@ -80,7 +80,12 @@ class _EreadingAdminPageState extends State<EreadingAdminPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ereading"),
+        title: const Text(
+          'Ereading',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.teal.shade400,
+        foregroundColor: Colors.white,
       ),
       drawer: buildDrawer(context),
       body: SafeArea(
@@ -90,18 +95,17 @@ class _EreadingAdminPageState extends State<EreadingAdminPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Card(
-                color: Colors.black,
+                color: Colors.teal.shade100,
                 elevation: 5,
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16.0),
-                  child: const Text(
-                    "Hai Admin LiteraKarya! Berikut ini adalah daftar bacaan digital yang harus kamu periksa hari ini.",
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    "Hai Admin LiteraKarya! Berikut ini adalah daftar bacaan digital yang harus kamu periksa.",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
+                        fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.justify,
                   ),
                 ),
               ),
@@ -118,11 +122,11 @@ class _EreadingAdminPageState extends State<EreadingAdminPage> {
                         snapshot.data.length == 0) {
                       return const Center(
                         child: Text(
-                          "Tidak ada Ereading yang harus diperiksa hari ini.",
+                          "Tidak ada Ereading yang harus diperiksa.",
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
                         ),
                       );
                     } else {
