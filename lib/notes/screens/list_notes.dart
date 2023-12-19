@@ -58,8 +58,6 @@ class _NotesPageState extends State<NotesPage> {
     }
   }
 
-
-
   @override
   void initState() {
     super.initState();
@@ -215,7 +213,7 @@ class _NotesPageState extends State<NotesPage> {
                                     await deleteNote(idNote, request);
                                     },
                                   ),
-                          ],
+                                ],
                               ),
                             ),
                           ],
