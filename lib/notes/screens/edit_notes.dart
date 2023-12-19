@@ -23,6 +23,21 @@ class _EditNotePageState extends State<EditNotePage> {
   late String _penanda;
   List<String> _bookTitles = [];
   String _selectedBookTitle = "";
+  double _adjustFontSize(String title) {
+    int titleLength = title.length;
+
+    // Set base font size
+    double fontSize = 16;
+
+    // Decrease the font size for longer titles
+    if (titleLength > 20) {
+      fontSize = 12;
+    }
+    if (titleLength > 30) {
+      fontSize = 10;
+    }
+     return fontSize;
+  }
 
   @override
   void initState() {
@@ -114,7 +129,12 @@ class _EditNotePageState extends State<EditNotePage> {
                 items: _bookTitles.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value),
+                    child: Text(
+                      value,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(fontSize: _adjustFontSize(value)), // Dynamic font size
+                    ),
                   );
                 }).toList(),
                 onChanged: (String? newValue) {

@@ -21,6 +21,19 @@ class _NoteFormPageState extends State<NoteFormPage> {
   String _penanda = "";
   List<String> _bookTitles = []; // List to store book titles
   String _selectedBookTitle = ""; // Variable to store the selected book title
+  double _adjustFontSize(String title) {
+    int titleLength = title.length;
+    
+    double fontSize = 16;
+
+    if (titleLength > 20) {
+      fontSize = 12;
+    }
+    if (titleLength > 30) {
+      fontSize = 10;
+    }
+     return fontSize;
+  }
 
   @override
   void initState() {
@@ -68,7 +81,7 @@ class _NoteFormPageState extends State<NoteFormPage> {
       drawer: buildDrawer(context),
       body: Form(
         key: _formKey,
-         child: SingleChildScrollView(
+        child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
           child: ListView(
@@ -102,38 +115,47 @@ class _NoteFormPageState extends State<NoteFormPage> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownButtonFormField<String>(
-                value: _selectedBookTitle.isEmpty ? null : _selectedBookTitle,
-                decoration: InputDecoration(
-                  labelText: "Judul Buku",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container( // Wrap the DropdownButtonFormField in a Container
+                    width: MediaQuery.of(context).size.width * 0.9, // Adjust the width
+                    child: DropdownButtonFormField<String>(
+                      isDense: true, 
+                      value: _selectedBookTitle.isEmpty ? null : _selectedBookTitle,
+                      decoration: InputDecoration(
+                        labelText: "Judul Buku",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                      items: _bookTitles.isEmpty
+                          ? [DropdownMenuItem<String>(value: null, child: Text('Judul Buku'))]
+                          : _bookTitles.map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(fontSize: _adjustFontSize(value)), // Dynamic font size
+                              ),
+                            );
+                          }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedBookTitle = newValue ?? '';
+                          _judulBuku = newValue ?? '';
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return "Judul buku tidak boleh kosong!";
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
-                items: _bookTitles.isEmpty
-                    ? [DropdownMenuItem<String>(value: null, child: Text('Judul Buku'))]
-                    : _bookTitles.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _selectedBookTitle = newValue ?? '';
-                    _judulBuku = newValue ?? '';
-                  });
-                },
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return "Judul buku tidak boleh kosong!";
-                  }
-                  return null;
-                },
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
@@ -239,3 +261,9 @@ class _NoteFormPageState extends State<NoteFormPage> {
     );
   }
 }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
