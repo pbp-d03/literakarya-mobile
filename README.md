@@ -45,7 +45,7 @@ LiteraKarya adalah platform baca buku online yang memadukan kemudahan akses ke b
 
 
 ### :man_judge: Role atau peran pengguna beserta deskripsi.
-1. Admin LiteraKarya = Admin memiliki wewenang dan hak lebih untuk memastikan semua user LiteraKarya mematuhi syarat dan ketentuan yang berlaku. Admin LiteraKarya harus login terlebih dahulu dengan username unik yang sudah dipersiapkan untuk bisa mengakses wewenang dan fitur lebihnya. Salah satu peran admin adalah dapat menghapus komentar negatif.
+1. Admin LiteraKarya = Admin memiliki wewenang dan hak lebih untuk memastikan semua user LiteraKarya mematuhi syarat dan ketentuan yang berlaku. Admin LiteraKarya harus login terlebih dahulu dengan username unik yang sudah dipersiapkan untuk bisa mengakses wewenang dan fitur lebihnya. Peran admin diantaranya adalah dapat menghapus komentar atau catatan yang bersifat negatif.
 
 2. User = Sebelum bisa menggunakan fitur-fitur yang sudah disiapkan, user harus register dan login terlebih dahulu ke aplikasi LiteraKarya.
 
