@@ -17,21 +17,21 @@ import 'package:literakarya_mobile/forum/screens/forum.dart';
 Drawer buildDrawer(BuildContext context) {
   final request = context.watch<CookieRequest>();
   return Drawer(
-      child: Container(
+    child: Container(
     color: Colors.teal.shade600,
     child: ListView(
       padding: const EdgeInsets.only(top: 60.0, left: 30.0),
       // menu navigasi
       children: [
         ListTile(
-          title:
-              const Text('Dashboard', style: TextStyle(color: Colors.yellow)),
+          title: const Text('Dashboard', style: TextStyle(color: Colors.yellow)),
           leading: const Icon(Icons.house, color: Colors.yellow),
           onTap: () {
             // Route menu ke counter
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const MyHomePage()),
+              MaterialPageRoute( builder: (context) => const MyHomePage(
+              )),
             );
           },
         ),
@@ -66,9 +66,9 @@ Drawer buildDrawer(BuildContext context) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => LoginPage.uname == "adminliterakarya"
-                      ? const AllAccountPage()
-                      : const ProfilePage()),
+                builder: (context) => LoginPage.uname == "adminliterakarya"
+                  ? const AllAccountPage() 
+                  : const ProfilePage()),
             );
           },
         ),
@@ -86,33 +86,35 @@ Drawer buildDrawer(BuildContext context) {
           },
         ),
         ListTile(
-            title: const Text('Catatan Saya',
-                style: TextStyle(color: Colors.white)),
-            leading: const Icon(Icons.note, color: Colors.white),
-            onTap: () {
-              // Route menu ke counter
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const NotesPage()));
-            }),
+          title: const Text('Catatan Saya', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.note, color: Colors.white),
+          onTap: () {
+            // Route menu ke counter
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const NotesPage()));
+          }
+        ),
         ListTile(
-            title: const Text('Rekomendasi',
-                style: TextStyle(color: Colors.white)),
-            leading: const Icon(Icons.note, color: Colors.white),
-            onTap: () {
-              // Route menu ke counter
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RecommendationsPage()));
-            }),
+          title: const Text('Rekomendasi', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.note, color: Colors.white),
+          onTap: () {
+            // Route menu ke counter
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => RecommendationsPage()));
+          }
+        ),
         ListTile(
-            title: const Text('Forum', style: TextStyle(color: Colors.white)),
-            leading: const Icon(Icons.groups, color: Colors.white),
-            onTap: () {
-              // Route menu ke counter
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const ForumPage()));
-            })
+          title: const Text('Forum', style: TextStyle(color: Colors.white)),
+          leading: const Icon(Icons.groups, color: Colors.white),
+          onTap: () {
+            // Route menu ke counter
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const ForumPage()));
+          }
+        )
       ],
     ),
   ));
