@@ -42,7 +42,7 @@ class StartPage extends StatelessWidget {
                       side: BorderSide(color: Colors.teal),
                     ),
                     padding: EdgeInsets.symmetric(
-                      vertical: screenHeight * 0.03, // Dynamic vertical padding
+                      vertical: screenHeight * 0.025, // Dynamic vertical padding
                       horizontal: screenWidth * 0.09, // Dynamic horizontal padding
                     ),
                   ),

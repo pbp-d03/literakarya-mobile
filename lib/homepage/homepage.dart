@@ -160,11 +160,11 @@ class MyHomePage extends StatelessWidget {
         itemBuilder: (context, index) {
           // Define the image URLs, titles, authors, and ratings based on the index
           List<String> imageUrls = [
-            'assets/images/bumimanusia.png',
-            'assets/images/perahukertas.png',
-            'assets/images/ayatayatcinta.png',
-            'assets/images/thecityofember.png',
-            'assets/images/thehobbit.png'
+            'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1565658920i/1398034.jpg',
+            'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1356225544i/6765740.jpg',
+            'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1439347437i/969177.jpg',
+            'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1591616783i/307791.jpg',
+            'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1546071216i/5907.jpg'
           ];
 
           List<String> titles = [
@@ -261,7 +261,7 @@ class MyHomePage extends StatelessWidget {
 
 
   Widget _buildImageDetail(
-      String imageUrl, String title, String author, String rating) {
+    String imageUrl, String title, String author, String rating) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Center(
