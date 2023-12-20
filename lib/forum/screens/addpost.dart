@@ -51,17 +51,20 @@ class _AddPostPageState extends State<AddPostPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Tambah post baru',
-            style: TextStyle(color: Colors.white),
-          ),
+     return Scaffold(
+    appBar: AppBar(
+      title: Text(
+        'Tambah Post Baru',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
         ),
-        backgroundColor: const Color.fromARGB(255, 38, 166, 154),
-        foregroundColor: Colors.white,
       ),
+        backgroundColor: Colors.teal.shade400,
+        foregroundColor: Colors.white,
+    ),
       body: Form(
         key: _formKey,
          child: SingleChildScrollView(

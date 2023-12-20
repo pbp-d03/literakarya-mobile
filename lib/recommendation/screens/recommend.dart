@@ -171,7 +171,7 @@ Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
       title: Text(
-        'Recommendation',
+        'Rekomendasi',
         style: TextStyle(
           color: Colors.white,
           fontSize: 20.0,
@@ -318,7 +318,7 @@ Widget build(BuildContext context) {
               width: 207,
               height: 23,
               child: Text(
-                'Hello, User!',
+                'Hello, ${LoginPage.uname}!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,
@@ -354,12 +354,23 @@ Widget build(BuildContext context) {
     // bool isCurrentUser = currentUserId == recommendation.userId;
     bool isLiked = likesState[pk] ?? false;
     int currentTotalLikes = totalLikes[pk] ?? 0;
-  return Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    elevation: 5,
-    color: Color.fromARGB(255, 61, 109, 121),
+  return Container(
     margin: const EdgeInsets.all(8),
-    child: Stack(
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Color.fromARGB(255, 61, 109, 121),
+          blurRadius: 4.0,
+          spreadRadius: 1.0,
+          offset: Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 5,
+      color: Colors.teal.shade400, // Set Card color to white
+      child: Stack(
       children: [
         SingleChildScrollView(
           child: Padding(
@@ -465,6 +476,7 @@ Widget build(BuildContext context) {
         ),
       ],
     ),
+  )
   );
 }
 
@@ -491,96 +503,118 @@ Widget build(BuildContext context) {
           ),
         ),
         Expanded(
-          child: FutureBuilder<List<Rekomendasi>>(
-            future: futureRecommendations,
-            builder: (context, snapshot) {
+        child: FutureBuilder<List<Rekomendasi>>(
+          future: futureRecommendations,
+          builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              // While waiting for the response, show a loading spinner.
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              // If we run into an error, display it to the user.
               return Center(child: Text("Error: ${snapshot.error}"));
             } else if (snapshot.hasData) {
-              // If we have data, display it in a GridView.
               return GridView.builder(
                 padding: const EdgeInsets.all(8),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Two columns
+                  crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  childAspectRatio: 0.6, // Adjust as needed
+                  childAspectRatio: 0.6,
                 ),
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   var recommendation = snapshot.data![index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => EditRecommend(recommendation: recommendation),
-                        ),
-                      );
-                    },
-                    child: bookCard(recommendation.fields, recommendation.pk, recommendation), 
-                  );
+                  return bookCard(recommendation.fields, recommendation.pk, recommendation);
                 },
-
               );
             } else {
-              // If there's no data, show a message to the user.
               return Center(child: Text("No recommendations found."));
             }
           },
-          ),
         ),
-      ],
-    );
-    
-  }
+      ),
+    ],
+  );
+}
 
 
   Widget musicPlaylistView() {
-    // Fungsi untuk mengontrol pemutaran
-    void playAudio() async {
-      await audioPlayer.stop(); // Hentikan lagu yang sedang diputar
-      await audioPlayer.play(UrlSource('assets/audio/compfest.mp3'));
-      setState(() {
-        isPlaying = true; // Ubah state pemutaran menjadi true
-      });
-    }
+  // List of songs
+  final List<String> songs = [
+    'Compfest', // Assuming this is the title of your first song
+    'Song Title 1',
+    'Song Title 2',
+    'Song Title 3',
+    'Song Title 4',
+    'Song Title 5',
+  ];
 
-    void stopAudio() async {
-      await audioPlayer.stop(); // Hentikan lagu yang sedang diputar
-      setState(() {
-        isPlaying = false; // Ubah state pemutaran menjadi false
-      });
-    }
+  // Corresponding paths to your songs
+  final List<String> songPaths = [
+    'assets/audio/compfest.mp3',
+    'assets/audio/song1.mp3',
+    'assets/audio/song2.mp3',
+    'assets/audio/song3.mp3',
+    'assets/audio/song4.mp3',
+    'assets/audio/song5.mp3',
+  ];
 
-    return ListView(
-      children: <Widget>[
-        Card( // Membungkus ListTile dengan Card
-          elevation: 4.0, // Menambahkan sedikit bayangan
-          margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4), // Spasi antar card
+  // Function to control audio playback
+  void playAudio(String path) async {
+    await audioPlayer.stop(); // Stop the currently playing song
+    await audioPlayer.play(UrlSource(path));
+    setState(() {
+      isPlaying = true; // Change playback state to true
+    });
+  }
+
+  void stopAudio() async {
+    await audioPlayer.stop(); // Stop the song
+    setState(() {
+      isPlaying = false; // Change playback state to false
+    });
+  }
+
+  return ListView.builder(
+    itemCount: songs.length,
+    itemBuilder: (context, index) {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(255, 61, 109, 121),
+              blurRadius: 4.0, // Adjust the blur radius to control the shadow spread
+              spreadRadius: 1.0, // Adjust the spread radius for more or less shadow
+              offset: Offset(0, 2), // Changes position of shadow
+            ),
+          ],
+        ),
+        child: Card(
+          color: Colors.white, // Set Card color to white
           child: ListTile(
-            title: Text('Compfest'),
+            leading: Image.asset('assets/images/music.png'),
+            title: Text(
+              songs[index],
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.black),
+            ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.play_arrow), // Ikon play
-                  onPressed: playAudio, // Memanggil fungsi playAudio saat tombol ditekan
+                  icon: Icon(Icons.play_arrow, color: Color.fromARGB(255, 61, 109, 121)),
+                  onPressed: () => playAudio(songPaths[index]),
                 ),
                 IconButton(
-                  icon: Icon(Icons.stop), // Ikon stop
-                  onPressed: stopAudio, // Memanggil fungsi stopAudio saat tombol ditekan
+                  icon: Icon(Icons.stop, color: Color.fromARGB(255, 61, 109, 121)),
+                  onPressed: stopAudio,
                 ),
               ],
             ),
           ),
         ),
-        // Tambahkan ListTile lainnya dengan Card di sini
-      ],
-    );
-  }
+      );
+    },
+  );
+}
+
 
 }

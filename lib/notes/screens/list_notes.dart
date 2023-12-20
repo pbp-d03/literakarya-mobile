@@ -73,7 +73,11 @@ class _NotesPageState extends State<NotesPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Catatan', style: TextStyle(color: Colors.white)),
+        title: const Text('Catatan', style: TextStyle(color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
+        )),
         backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
       ),

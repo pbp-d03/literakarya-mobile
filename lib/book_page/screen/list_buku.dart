@@ -20,11 +20,19 @@ class _DaftarBukuState extends State<DaftarBuku> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: Colors.green[100],
-        appBar: AppBar(
-          title: Text("Daftar Buku"),
-          backgroundColor: Colors.teal.shade400,
+    appBar: AppBar(
+      title: Text(
+        'Daftar Buku',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
         ),
+      ),
+        backgroundColor: Colors.teal.shade400,
+        foregroundColor: Colors.white,
+    ),
         drawer: buildDrawer(context),
         body: Container(
             child: Column(

@@ -30,11 +30,21 @@ class _TestMeState extends State<TestMe> {
     String judul = widget.judulBuku;
     // String userName = LoginPage.uname;
 
+    
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Komen Book: ${judul}"),
-        backgroundColor: Colors.teal.shade400,
+    appBar: AppBar(
+      title: Text(
+        "Komen Book: ${judul}",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
+        ),
       ),
+        backgroundColor: Colors.teal.shade400,
+        foregroundColor: Colors.white,
+    ),
       body: Container(
         child: CommentBox(
           child: FutureBuilder(

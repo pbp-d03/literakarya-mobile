@@ -10,13 +10,18 @@ class DetailNotePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          item.fields.judulCatatan,
-          style: TextStyle(color: Colors.white),
+      title: Text(
+        item.fields.judulCatatan,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
         ),
+      ),
         backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
-      ),
+    ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Card(

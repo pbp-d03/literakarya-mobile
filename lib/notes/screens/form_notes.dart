@@ -61,7 +61,11 @@ class _NoteFormPageState extends State<NoteFormPage> {
         title: const Center(
           child: Text(
             'Buat Catatan',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
+        ),
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 38, 166, 154),
