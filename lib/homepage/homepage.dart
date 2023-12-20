@@ -209,9 +209,6 @@ class MyHomePage extends StatelessWidget {
             primary: Colors.teal,
             onPrimary: Colors.white,
             padding: EdgeInsets.all(16.0),
-            shape: RoundedRectangleBorder( // Membuat tombol menjadi rounded
-              borderRadius: BorderRadius.circular(30.0),
-            ),
           ),
           child: FittedBox( // Ensures contents fit within the button
             child: Row(
@@ -245,9 +242,6 @@ class MyHomePage extends StatelessWidget {
             primary: Colors.teal,
             onPrimary: Colors.white,
             padding: EdgeInsets.all(16.0),
-            shape: RoundedRectangleBorder( // Membuat tombol menjadi rounded
-              borderRadius: BorderRadius.circular(30.0),
-            ),
           ),
           child: FittedBox( // Ensures contents fit within the button
             child: Row(
@@ -341,7 +335,7 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Rekomendasi',
         'description':
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+            'Temukan buku-buku menarik yang sesuai dengan selera kamu, bagikan pendapat dan ulasan kamu dengan komunitas pembaca yang antusias, dan nikmati musik yang cocok dengan suasana buku yang kamu baca!',
         'color': const Color.fromARGB(255, 255, 209, 225)
       },
       {
