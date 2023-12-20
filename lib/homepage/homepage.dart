@@ -84,6 +84,7 @@ class MyHomePage extends StatelessWidget {
                   _buildBookTitleSection(),
                   _buildImageSection(),
                   _buildViewMoreButton(context),
+                  _buildForYouButton(context),
                   _buildFeatureTitleSection(),
                   _buildFeatureSection(),
                 ],
@@ -229,6 +230,33 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
+  Widget _buildForYouButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const RecommendForYou()),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          primary: Colors.teal,
+          onPrimary: Colors.white,
+          padding: EdgeInsets.all(16.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0), // More rounded corners
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Rekomendasi pintar untukmu', style: TextStyle(fontSize: 14)),
+            Icon(Icons.arrow_forward_ios_rounded, size: 18),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _buildImageDetail(
       String imageUrl, String title, String author, String rating) {
