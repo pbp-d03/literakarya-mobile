@@ -337,7 +337,7 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Rekomendasi',
         'description':
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+            'Dengan fitur rekomendasi buku, kamu jadi bisa saling berbagi buku-buku kesukaanmu, memberi dan menerima likes dari rekomendasi orang lain, dan mendengarkan musik yang cocok dengan suasana buku.',
         'color': const Color.fromARGB(255, 255, 209, 225)
       },
       {
