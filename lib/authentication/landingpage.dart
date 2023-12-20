@@ -10,6 +10,9 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -23,7 +26,7 @@ class StartPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(flex: 3), // Increase flex to push the button down
+                Spacer(flex: screenHeight < 400 ? 1 : 3), // Adjust flex based on screen height
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -38,16 +41,17 @@ class StartPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(50.0),
                       side: BorderSide(color: Colors.teal),
                     ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: screenHeight * 0.03, // Dynamic vertical padding
+                      horizontal: screenWidth * 0.05, // Dynamic horizontal padding
+                    ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      'Mulai Jelajahi',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.teal.shade700,
-                      ),
+                  child: Text(
+                    'Mulai Jelajahi',
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.04, // Dynamic font size
+                      fontWeight: FontWeight.bold,
+                      color: Colors.teal.shade700,
                     ),
                   ),
                 ),
