@@ -26,19 +26,7 @@ class MyHomePage extends StatelessWidget {
         title: "Dashboard",
         home: Scaffold(
           appBar: AppBar(
-<<<<<<< HEAD
-            title: Text(
-        'Dashboard',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20.0,
-          fontFamily: 'Poppins',
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-=======
             title: Text("Dashboard"),
->>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
             backgroundColor: Colors.teal,
             leading: Builder(
               builder: (BuildContext context) {
@@ -117,10 +105,6 @@ class MyHomePage extends StatelessWidget {
       child: Text(
         'Selamat Datang di LiteraKarya!',
         style: TextStyle(
-<<<<<<< HEAD
-          fontFamily: 'Poppins',
-=======
->>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
           fontSize: 28, // Large font size
           fontWeight: FontWeight.bold, // Bold text
           color: Colors.teal.shade700, // Teal color
@@ -157,12 +141,7 @@ class MyHomePage extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Text(
         'Lihat Buku',
-<<<<<<< HEAD
-        style: TextStyle(   
-          fontFamily: 'Poppins',     
-=======
         style: TextStyle(
->>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
           fontSize: 30, // Large font size
           fontWeight: FontWeight.bold, // Bold text
           color: Colors.teal.shade700, // Teal color
@@ -217,21 +196,6 @@ class MyHomePage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Padding(
-<<<<<<< HEAD
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const DaftarBuku()),
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          primary: Colors.teal,
-          onPrimary: Colors.white,
-          padding: EdgeInsets.all(16.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0), // More rounded corners
-=======
       padding: EdgeInsets.only(right: screenWidth * 0.04, bottom: screenWidth * 0.04), // Dynamic padding
       child: Align(
         alignment: Alignment.bottomCenter,
@@ -245,6 +209,9 @@ class MyHomePage extends StatelessWidget {
             primary: Colors.teal,
             onPrimary: Colors.white,
             padding: EdgeInsets.all(16.0),
+            shape: RoundedRectangleBorder( // Membuat tombol menjadi rounded
+              borderRadius: BorderRadius.circular(30.0),
+            ),
           ),
           child: FittedBox( // Ensures contents fit within the button
             child: Row(
@@ -255,7 +222,6 @@ class MyHomePage extends StatelessWidget {
                 Icon(Icons.arrow_forward_ios_rounded, size: 18),
               ],
             ),
->>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
           ),
         ),
       ),
@@ -279,6 +245,9 @@ class MyHomePage extends StatelessWidget {
             primary: Colors.teal,
             onPrimary: Colors.white,
             padding: EdgeInsets.all(16.0),
+            shape: RoundedRectangleBorder( // Membuat tombol menjadi rounded
+              borderRadius: BorderRadius.circular(30.0),
+            ),
           ),
           child: FittedBox( // Ensures contents fit within the button
             child: Row(
@@ -328,10 +297,6 @@ class MyHomePage extends StatelessWidget {
       child: Text(
         'Fitur LiteraKarya',
         style: TextStyle(
-<<<<<<< HEAD
-          fontFamily: 'Poppins',
-=======
->>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
           fontSize: 30, // Large font size
           fontWeight: FontWeight.bold, // Bold text
           color: Colors.teal.shade700, // Teal color
@@ -376,11 +341,7 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Rekomendasi',
         'description':
-<<<<<<< HEAD
-            'Berbagi dan dapatkan rekomendasi-rekomendasi buku pilihan yang ada untuk dapat Anda baca dan nikmati segera.',
-=======
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
->>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
         'color': const Color.fromARGB(255, 255, 209, 225)
       },
       {
