@@ -179,7 +179,8 @@ Widget build(BuildContext context) {
           fontWeight: FontWeight.w700,
         ),
       ),
-      backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.teal.shade400,
+        foregroundColor: Colors.white,
     ),
     drawer: buildDrawer(context),
     body: Container(
@@ -484,7 +485,7 @@ Widget build(BuildContext context) {
             },
             child: Text('Add Recommendation'),
             style: ElevatedButton.styleFrom(
-              primary: Theme.of(context).primaryColor, // Use your primary color here
+              primary: Colors.teal.shade700, // Use your primary color here
               onPrimary: Colors.white, // Text color
             ),
           ),
