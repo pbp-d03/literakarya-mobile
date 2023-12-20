@@ -338,7 +338,7 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Rekomendasi',
         'description':
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+            'Buka hari lebih berwarna dengan rekomendasi-rekomendasi buku pilihan yang ada untuk dapat Anda baca dan nikmati segera.',
         'color': const Color.fromARGB(255, 255, 209, 225)
       },
       {
