@@ -5,6 +5,7 @@ import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/book_page/screen/list_bookmark.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
+import 'package:literakarya_mobile/recommendation/screens/recommend.dart';
 import 'package:literakarya_mobile/user_profile/screens/recommend_byfavgenre.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -236,7 +237,7 @@ class MyHomePage extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const RecommendForYou()),
+            MaterialPageRoute(builder: (context) => RecommendationsPage()),
           );
         },
         style: ElevatedButton.styleFrom(
