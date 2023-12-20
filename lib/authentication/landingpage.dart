@@ -43,7 +43,7 @@ class StartPage extends StatelessWidget {
                     ),
                     padding: EdgeInsets.symmetric(
                       vertical: screenHeight * 0.03, // Dynamic vertical padding
-                      horizontal: screenWidth * 0.05, // Dynamic horizontal padding
+                      horizontal: screenWidth * 0.09, // Dynamic horizontal padding
                     ),
                   ),
                   child: Text(

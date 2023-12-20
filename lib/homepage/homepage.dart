@@ -160,11 +160,11 @@ class MyHomePage extends StatelessWidget {
         itemBuilder: (context, index) {
           // Define the image URLs, titles, authors, and ratings based on the index
           List<String> imageUrls = [
-            'assets/images/bumimanusia.jpg',
-            'assets/images/perahukertas.jpg',
-            'assets/images/ayatayatcinta.jpg',
-            'assets/images/thecityofember.jpg',
-            'assets/images/thehobbit.jpg'
+            'assets/images/bumimanusia.png',
+            'assets/images/perahukertas.png',
+            'assets/images/ayatayatcinta.png',
+            'assets/images/thecityofember.png',
+            'assets/images/thehobbit.png'
           ];
 
           List<String> titles = [
