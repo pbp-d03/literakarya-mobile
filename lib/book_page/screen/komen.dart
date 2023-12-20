@@ -39,7 +39,7 @@ class _TestMeState extends State<TestMe> {
           color: Colors.white,
           fontSize: 20.0,
           fontFamily: 'Poppins',
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w500,
         ),
       ),
         backgroundColor: Colors.teal.shade400,

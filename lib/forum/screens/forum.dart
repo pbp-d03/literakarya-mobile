@@ -65,7 +65,7 @@ class _ForumPageState extends State<ForumPage> {
           color: Colors.white,
           fontSize: 20.0,
           fontFamily: 'Poppins',
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w500,
         ),
       ),
         backgroundColor: Colors.teal.shade400,

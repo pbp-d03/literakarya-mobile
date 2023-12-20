@@ -74,7 +74,7 @@ class _EditNotePageState extends State<EditNotePage> {
             style: TextStyle(color: Colors.white,
           fontSize: 20.0,
           fontFamily: 'Poppins',
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w500,
         ),
           ),
         ),
