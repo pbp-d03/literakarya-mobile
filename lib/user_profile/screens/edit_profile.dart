@@ -72,7 +72,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
         title: const Center(
           child: Text(
             'Edit Profile',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
         backgroundColor: Color.fromARGB(255, 38, 166, 154),

@@ -50,15 +50,34 @@ class _ProfilePageState extends State<ProfilePage> {
     final uname = LoginPage.uname;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Profile',
+      title: Text(
+        'Profil',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w700,
         ),
+      ),
         backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
       ),
-      drawer: buildDrawer(context),
-      body: Center(
-        child: ListView.builder(
+        drawer: buildDrawer(context),
+        body: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/listbook.png'),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.85), // Atur opasitas di sini (0.1 untuk 10% opacity)
+                  BlendMode.dstATop, // Mode campuran yang digunakan
+                ),),
+              ),
+            ),
+            Center(
+              child: ListView.builder(
                 itemCount: profiles.length,
                 itemBuilder: (_, index) => Container(
                   width: double.infinity,
@@ -67,24 +86,54 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.account_circle,
-                        size: 200.0,
-                      ),
-                      const SizedBox(height: 14.0),
-                      Text(
-                        "$uname Profile",
-                        style: const TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
+                    children: [               
+                    ClipOval(
+                        child: Image.asset(
+                          'assets/images/profile.png', // Path to your image asset
+                          width: 200.0, // Adjust the width as needed (should be equal to height for a perfect circle)
+                          height: 200.0, // Adjust the height as needed
+                          fit: BoxFit.cover, // Adjust the fit as needed
                         ),
                       ),
+                      const SizedBox(height: 14.0),
+                     Stack(
+                      children: [
+                        // Teks dengan border
+                        Text(
+                          "$uname Profile",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w700,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 5 // Lebar border hitam
+                              ..color = Color.fromARGB(255, 61, 109, 121), // Warna border hitam
+                          ),
+                        ),
+                        // Teks utama
+                        Text(
+                          "$uname Profile",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontFamily: 'Sansita',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],),
                       const SizedBox(height: 10),
                       Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.teal.shade50,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 61, 109, 121),
+                              blurRadius: 4.0,
+                              spreadRadius: 1.0,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                          color: const Color.fromARGB(255, 255, 255, 255),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         padding: const EdgeInsets.all(16.0),
@@ -127,6 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(Colors.teal.shade400),
+                          elevation: MaterialStateProperty.all(4),
                         ),
                         onPressed: () async {
                           final result = await Navigator.push(
@@ -148,8 +198,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-              ),
-      ),
-    );
+                ),
+                ),
+    ],
+    ),
+            );   
   }
 }

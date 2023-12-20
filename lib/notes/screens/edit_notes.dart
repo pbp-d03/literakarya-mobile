@@ -73,7 +73,7 @@ class _EditNotePageState extends State<EditNotePage> {
             'Edit Catatan',
             style: TextStyle(color: Colors.white,
           fontSize: 20.0,
-          fontFamily: 'Sansita',
+          fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         ),
           ),
