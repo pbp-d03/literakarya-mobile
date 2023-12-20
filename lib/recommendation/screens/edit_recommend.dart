@@ -98,7 +98,17 @@ Widget build(BuildContext context) {
 
   return Scaffold(
     appBar: AppBar(
-      title: Text('Recommendation Form'),
+      title: Text(
+        'Edit Rekomendasi',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+        backgroundColor: Colors.teal.shade400,
+        foregroundColor: Colors.white,
     ),
     body: Container(
       decoration: BoxDecoration(
