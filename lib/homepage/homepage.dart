@@ -5,6 +5,7 @@ import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/book_page/screen/list_bookmark.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
+import 'package:literakarya_mobile/recommendation/screens/recommend.dart';
 import 'package:literakarya_mobile/user_profile/screens/recommend_byfavgenre.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -236,7 +237,7 @@ class MyHomePage extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const RecommendForYou()),
+            MaterialPageRoute(builder: (context) => RecommendationsPage()),
           );
         },
         style: ElevatedButton.styleFrom(
@@ -272,7 +273,7 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment:
               MainAxisAlignment.center, // Center the contents vertically
           children: <Widget>[
-            Image.network(
+            Image.asset(
               imageUrl,
               width: 160, // Adjust the image width
               height: 200, // Adjust the image height
@@ -337,7 +338,7 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Rekomendasi',
         'description':
-            'Dengan fitur rekomendasi buku, kamu jadi bisa saling berbagi buku-buku kesukaanmu, memberi dan menerima likes dari rekomendasi orang lain, dan mendengarkan musik yang cocok dengan suasana buku.',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
         'color': const Color.fromARGB(255, 255, 209, 225)
       },
       {
@@ -393,6 +394,4 @@ class MyHomePage extends StatelessWidget {
       ),
     );
   }
-
-  // ... existing code ...
 }
