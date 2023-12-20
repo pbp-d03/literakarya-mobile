@@ -22,6 +22,11 @@ class _AddPostPageState extends State<AddPostPage> {
   List<String> _books = [];
   String _selectedBook = "";
   String _message = "";
+  double _adjustFontSize(String title) {
+  int titleLength = title.length;
+    double fontSize = 16;
+    return fontSize;
+  }
 
   @override
   void initState() {
@@ -103,40 +108,44 @@ class _AddPostPageState extends State<AddPostPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: DropdownButtonFormField<String>(
-                value: _selectedBook.isEmpty ? null : _selectedBook,
-                decoration: InputDecoration(
-                  labelText: "Judul Buku",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9, // Adjust width if necessary
+                child: DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  value: _selectedBook.isEmpty ? null : _selectedBook,
+                  decoration: InputDecoration(
+                    labelText: "Judul Buku",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
                   ),
+                  items: _books.isEmpty
+                      ? [DropdownMenuItem<String>(value: null, child: Text('No Books'))]
+                      : _books.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              overflow: TextOverflow.ellipsis, // Ini untuk mengelola overflow teks
+                              style: TextStyle(fontSize: _adjustFontSize(value)), // Sesuaikan ukuran font jika perlu
+                            ),
+                          );
+                        }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedBook = newValue ?? '';
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Judul buku tidak boleh kosong!";
+                    }
+                    return null;
+                  },
                 ),
-                items: _books.isEmpty
-                    ? [DropdownMenuItem<String>(value: null, child: Text('Judul Buku'))]
-                    : _books.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _selectedBook = newValue ?? '';
-                  });
-                },
-                onSaved: (String? value) {
-                  setState(() {
-                    _selectedBook = value!;
-                  });
-                },
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return "Judul buku tidak boleh kosong!";
-                  }
-                  return null;
-                },
               ),
-            ),  
+            ),
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(

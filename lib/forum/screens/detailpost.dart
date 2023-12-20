@@ -130,7 +130,7 @@ class _DetailPostPageState extends State<DetailPostPage> {
                   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 9, 13, 93), // Set the color to orange
+                    color: Colors.teal.shade600, // Set the color to orange
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Form(

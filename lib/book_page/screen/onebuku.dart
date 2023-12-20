@@ -20,7 +20,7 @@ class SingleBook extends StatefulWidget {
 class _SingleBookState extends State<SingleBook> {
   Color warna = Colors.green;
   String uname = LoginPage.uname;
-  String bookmark = "AddBookmark";
+  String bookmark = "Add Bookmark";
 
   Widget buildGenreContainer(String genre) {
     return Container(
@@ -101,7 +101,7 @@ class _SingleBookState extends State<SingleBook> {
                           backgroundColor:
                               const Color.fromARGB(255, 255, 250, 250)),
                       onPressed: () async {
-                        if (bookmark == "AddBookmark") {
+                        if (bookmark == "Add Bookmark") {
                           final response = await request.postJson(
                               "https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/add-bookmark-flutter/$uname/",
                               jsonEncode(<String, int>{
@@ -109,7 +109,7 @@ class _SingleBookState extends State<SingleBook> {
                                 // TODO: Sesuaikan field data sesuai dengan aplikasimu
                               }));
                           setState(() {
-                            bookmark = "DeleteBookmark";
+                            bookmark = "Delete Bookmark";
                             warna = Colors.red;
                           });
                         } else {
@@ -120,7 +120,7 @@ class _SingleBookState extends State<SingleBook> {
                                 // TODO: Sesuaikan field data sesuai dengan aplikasimu
                               }));
                           setState(() {
-                            bookmark = "AddBookmark";
+                            bookmark = "Add Bookmark";
                             warna = Colors.green;
                           });
                         }
@@ -136,7 +136,7 @@ class _SingleBookState extends State<SingleBook> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 85, 107, 231),
+                        backgroundColor: Colors.teal.shade600,
                         foregroundColor: Colors.white),
                     onPressed: () {
                       // Route menu ke counter
@@ -150,7 +150,7 @@ class _SingleBookState extends State<SingleBook> {
                       );
                     },
                     child: const Text(
-                      'Komen Buku',
+                      'Komentar Buku',
                       style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
@@ -159,66 +159,90 @@ class _SingleBookState extends State<SingleBook> {
                   ),
                   const SizedBox(height: 20.0),
                   Align(
-                      child: Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // ============================= AUTHOR & RATINGS ================================
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // AUTHOR
-                            Row(children: [
-                              Icon(Icons.person, color: Colors.green[600]),
-                              Text("${widget.data.fields.author}",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.green[600]))
-                            ]),
-                            SizedBox(height: 10),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(children: [
-                                    Icon(Icons.pages, color: Colors.blue),
-                                    Text(
-                                        "${widget.data.fields.jumlahHalaman} halaman",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.blue))
-                                  ]),
-                                  Row(children: [
-                                    Icon(Icons.rate_review,
-                                        color: Colors.red[600]),
-                                    Text("${widget.data.fields.rating} ",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w700)),
-                                    Text(
-                                        "by ${widget.data.fields.jumlahRating} reviewers",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.normal)),
-                                  ])
-                                ]),
-                          ]),
+                      // AUTHOR
+                      Row(
+                        children: [
+                          Icon(Icons.person, color: Colors.green[600]),
+                          SizedBox(width: 4),
+                          Flexible( // Mencegah overflow pada nama author
+                            child: Text(
+                              "${widget.data.fields.author}",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.green[600]
+                              )
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+
+                      // JUMLAH HALAMAN
+                      Row(
+                        children: [
+                          Icon(Icons.pages, color: Colors.blue),
+                          SizedBox(width: 4),
+                          Flexible( // Mencegah overflow pada judul halaman
+                            child: Text(
+                              "${widget.data.fields.jumlahHalaman} halaman",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.blue
+                              )
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+
+                      // RATING
+                      Row(
+                        children: [
+                          Icon(Icons.rate_review, color: Colors.red[600]),
+                          SizedBox(width: 4),
+                          Flexible( // Mencegah overflow pada rating
+                            child: Text(
+                              "${widget.data.fields.rating} by ${widget.data.fields.jumlahRating} reviewers",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.red,
+                                fontWeight: FontWeight.w700
+                              )
+                            ),
+                          ),
+                        ],
+                      ),
+
                       // ============================= Genres ================================
                       SizedBox(height: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(children: [
+                        Row(
+                          children: [
                             Icon(Icons.category, color: Colors.orange[600]),
-                            Text("Genres ",
+                            SizedBox(width: 4),
+                            Flexible( // Mencegah overflow pada genre
+                              child: Text(
+                                "Genres: ",
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.orange[600]))
-                          ]),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.orange[600]
+                                )
+                              ),
+                            ),
+                          ],
+                        ),
                           SizedBox(height: 10),
                           Wrap(
                             spacing:

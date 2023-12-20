@@ -26,6 +26,7 @@ class MyHomePage extends StatelessWidget {
         title: "Dashboard",
         home: Scaffold(
           appBar: AppBar(
+<<<<<<< HEAD
             title: Text(
         'Dashboard',
         style: TextStyle(
@@ -35,6 +36,9 @@ class MyHomePage extends StatelessWidget {
           fontWeight: FontWeight.w700,
         ),
       ),
+=======
+            title: Text("Dashboard"),
+>>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
             backgroundColor: Colors.teal,
             leading: Builder(
               builder: (BuildContext context) {
@@ -84,6 +88,7 @@ class MyHomePage extends StatelessWidget {
                   _buildBookTitleSection(),
                   _buildImageSection(),
                   _buildViewMoreButton(context),
+                  _buildForYouButton(context),
                   _buildFeatureTitleSection(),
                   _buildFeatureSection(),
                 ],
@@ -110,9 +115,12 @@ class MyHomePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Text(
-        'Selamat datang di LiteraKarya!',
+        'Selamat Datang di LiteraKarya!',
         style: TextStyle(
+<<<<<<< HEAD
           fontFamily: 'Poppins',
+=======
+>>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
           fontSize: 28, // Large font size
           fontWeight: FontWeight.bold, // Bold text
           color: Colors.teal.shade700, // Teal color
@@ -134,8 +142,8 @@ class MyHomePage extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             color: Colors.black, // Black color
-            fontFamily: 'Poppins', 
-            fontWeight: FontWeight.w700,
+            fontFamily: 'Poppins', // Poppins font
+            fontWeight: FontWeight.w500,
             textBaseline: TextBaseline.alphabetic,
           ),
           textAlign: TextAlign.justify, // Justified alignment
@@ -149,8 +157,12 @@ class MyHomePage extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Text(
         'Lihat Buku',
+<<<<<<< HEAD
         style: TextStyle(   
           fontFamily: 'Poppins',     
+=======
+        style: TextStyle(
+>>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
           fontSize: 30, // Large font size
           fontWeight: FontWeight.bold, // Bold text
           color: Colors.teal.shade700, // Teal color
@@ -202,7 +214,10 @@ class MyHomePage extends StatelessWidget {
   }
 
   Widget _buildViewMoreButton(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
+<<<<<<< HEAD
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: ElevatedButton(
         onPressed: () {
@@ -216,19 +231,69 @@ class MyHomePage extends StatelessWidget {
           padding: EdgeInsets.all(16.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0), // More rounded corners
+=======
+      padding: EdgeInsets.only(right: screenWidth * 0.04, bottom: screenWidth * 0.04), // Dynamic padding
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const DaftarBuku()),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.teal,
+            onPrimary: Colors.white,
+            padding: EdgeInsets.all(16.0),
           ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Lihat Selengkapnya', style: TextStyle(fontSize: 14)),
-            Icon(Icons.arrow_forward_ios_rounded, size: 18),
-          ],
+          child: FittedBox( // Ensures contents fit within the button
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Lihat Selengkapnya', style: TextStyle(fontSize: 14)),
+                SizedBox(width: 8),
+                Icon(Icons.arrow_forward_ios_rounded, size: 18),
+              ],
+            ),
+>>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
+          ),
         ),
       ),
     );
   }
 
+    Widget _buildForYouButton(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: EdgeInsets.only(right: screenWidth * 0.04, bottom: screenWidth * 0.04), // Dynamic padding
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const  RecommendForYou()),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.teal,
+            onPrimary: Colors.white,
+            padding: EdgeInsets.all(16.0),
+          ),
+          child: FittedBox( // Ensures contents fit within the button
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Rekomendasi Pintar Untukmu', style: TextStyle(fontSize: 14)),
+                SizedBox(width: 8),
+                Icon(Icons.arrow_forward_ios_rounded, size: 18),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget _buildImageDetail(
       String imageUrl, String title, String author, String rating) {
@@ -263,7 +328,10 @@ class MyHomePage extends StatelessWidget {
       child: Text(
         'Fitur LiteraKarya',
         style: TextStyle(
+<<<<<<< HEAD
           fontFamily: 'Poppins',
+=======
+>>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
           fontSize: 30, // Large font size
           fontWeight: FontWeight.bold, // Bold text
           color: Colors.teal.shade700, // Teal color
@@ -308,7 +376,11 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Rekomendasi',
         'description':
+<<<<<<< HEAD
             'Berbagi dan dapatkan rekomendasi-rekomendasi buku pilihan yang ada untuk dapat Anda baca dan nikmati segera.',
+=======
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+>>>>>>> 1e7c295c0c9d3e27d809202ec888f76d50ebc080
         'color': const Color.fromARGB(255, 255, 209, 225)
       },
       {
@@ -332,21 +404,10 @@ class MyHomePage extends StatelessWidget {
   }
 
   Widget _buildCard(String title, String description, Color color) {
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-    decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: color.withOpacity(0.5), // Adjust the opacity as needed
-          blurRadius: 4.0, // Adjust blur radius
-          spreadRadius: 1.0, // Adjust spread radius
-          offset: Offset(0, 2), // Adjust the offset
-        ),
-      ],
-    ),
-    child: Card(
+    return Card(
       color: color,
       elevation: 4.0,
+      margin: EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -373,8 +434,6 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 }

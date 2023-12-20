@@ -21,7 +21,10 @@ class _AllAccountPageState extends State<AllAccountPage> {
       List<User> listAccount = [];
       for (var d in data) {
         if (d != null) {
-          listAccount.add(User.fromJson(d));
+          User account = User.fromJson(d);
+          if (account.fields.username != "adminliterakarya") {
+            listAccount.add(account);
+          }
         }
       }
       setState(() {
