@@ -97,7 +97,7 @@ Drawer buildDrawer(BuildContext context) {
         ),
         ListTile(
           title: const Text('Rekomendasi', style: TextStyle(color: Colors.white)),
-          leading: const Icon(Icons.note, color: Colors.white),
+          leading: const Icon(Icons.star, color: Colors.white),
           onTap: () {
             // Route menu ke counter
             Navigator.pushReplacement(

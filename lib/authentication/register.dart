@@ -150,36 +150,36 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                         child: const Text('Register'),
                       ),
-                      const SizedBox(height: 20.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Sudah punya akun? ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.black,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => const LoginPage()),
-                              );
-                            },
-                            child: const Text(
-                              'Login',
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+        const SizedBox(height: 20.0),
+Wrap(
+  alignment: WrapAlignment.center,
+  children: [
+    Text(
+      'Sudah punya akun? ',
+      style: TextStyle(
+        fontSize: MediaQuery.of(context).size.width * 0.045, // Dynamically set font size
+        color: Colors.black,
+      ),
+    ),
+    GestureDetector(
+      onTap: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      },
+      child: Text(
+        'Login',
+        style: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.045, // Dynamically set font size
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline,
+        ),
+      ),
+    ),
+  ],
+),
                     ],
                   ),
                 ),
