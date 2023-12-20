@@ -1,4 +1,4 @@
-[![Deploy](https://github.com/pbp-d03/literakarya-mobile/actions/workflows/dpl.yml/badge.svg)](https://github.com/pbp-d03/literakarya-mobile/actions/workflows/dpl.yml)
+[![Deploy](https://github.com/pbp-d03/literakarya-mobile/actions/workflows/dpl.yml/badge.svg)](https://github.com/pbp-d03/literakarya-mobile/actions/workflows/release.yml)
 [![Build status](https://build.appcenter.ms/v0.1/apps/b227e6ad-6015-441a-aff0-28583e6127d5/branches/main/badge)](https://appcenter.ms)
 
 -Link to App: [LiteraKarya](https://install.appcenter.ms/orgs/literakarya_mobile/apps/literakarya/distribution_groups/public)
