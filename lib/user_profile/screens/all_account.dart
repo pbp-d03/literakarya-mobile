@@ -52,8 +52,6 @@ class _AllAccountPageState extends State<AllAccountPage> {
     }
   }
 
-
-
   @override
   void initState() {
     super.initState();

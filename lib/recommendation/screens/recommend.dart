@@ -198,20 +198,25 @@ Widget build(BuildContext context) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
+                Expanded( // Gunakan Expanded
+                  child: ElevatedButton(
                   onPressed: () => setState(() {
                     showBookRecommendations = true;
                   }),
                   child: Row(
                     mainAxisSize: MainAxisSize.min, // To wrap the content of the row
                     children: <Widget>[
-                      Image.asset(
-                        'assets/images/minibook.png', // Replace with your asset name
-                        height: 20, // Set the size as you need
-                        width: 20,
+                      FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Image.asset(
+                          'assets/images/minibook.png', // Ganti dengan nama asset Anda
+                          height: 20, // Atur ukuran ini
+                          width: 20,
+                        ),
                       ),
                       SizedBox(width: 8), // Spacing between the icon and text
-                      Text(
+                      Flexible(
+                      child: Text(
                         'Book Recommendation',
                         style: TextStyle(
                           color: Color.fromARGB(255, 6, 0, 0),
@@ -219,6 +224,8 @@ Widget build(BuildContext context) {
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w700,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       ),
                     ],
                   ),
@@ -226,36 +233,45 @@ Widget build(BuildContext context) {
                     primary: showBookRecommendations ? Color(0xFFF9BE5A) : Color.fromARGB(255, 254, 255, 255),
                     padding: EdgeInsets.symmetric(horizontal: 12), // Add padding if needed
                   ),
-                ),
-                ElevatedButton(
+                ),),
+                SizedBox(width: 8), // Jarak antara tombol
+                Expanded( // Gunakan E
+                child: ElevatedButton(
                   onPressed: () => setState(() {
                     showBookRecommendations = false;
                   }),
                   child: Row(
                     mainAxisSize: MainAxisSize.min, // To wrap the content of the row
                     children: <Widget>[
-                      Image.asset(
-                        'assets/images/gramaphone.png', // Replace with your asset name
-                        height: 20, // Set the size as you need
-                        width: 20,
+                      FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Image.asset(
+                          'assets/images/gramaphone.png', // Ganti dengan nama asset Anda
+                          height: 20, // Atur ukuran ini
+                          width: 20,
+                        ),
                       ),
                       SizedBox(width: 8), // Spacing between the icon and text
-                      Text(
+                      Flexible(
+                        child: Text(
                         'Music Playlist',
                         style: TextStyle(
                           color: Color.fromARGB(255, 6, 0, 0),
                           fontSize: 12.0,
-                          fontFamily: 'Poppins',
+                          fontFamily: 'Sansita',
                           fontWeight: FontWeight.w700,
                         ),
-                      ),
+                        overflow: TextOverflow.ellipsis,
+                      ),),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
                     primary: showBookRecommendations ?Color.fromARGB(255, 254, 255, 255) : Color(0xFFF9BE5A),
+                    padding: EdgeInsets.symmetric(horizontal: 12), 
                   ),
                 ),
-              ],
+            ),
+            ],
             ),
           ),
           Expanded(
