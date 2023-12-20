@@ -94,7 +94,17 @@ class _RecommendForYouState extends State<RecommendForYou> {
     return Scaffold(
         // backgroundColor: Colors.green[100],
         appBar: AppBar(
-          title: Text("Rekomendasi"),
+          title: Text(
+            'Profile',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+            backgroundColor: Colors.teal.shade400,
+            foregroundColor: Colors.white,
         ),
         drawer: buildDrawer(context),
         body: Container(

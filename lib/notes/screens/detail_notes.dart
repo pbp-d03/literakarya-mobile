@@ -15,7 +15,7 @@ class DetailNotePage extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontSize: 20.0,
-          fontFamily: 'Sansita',
+          fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         ),
       ),

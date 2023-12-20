@@ -175,7 +175,7 @@ Widget build(BuildContext context) {
         style: TextStyle(
           color: Colors.white,
           fontSize: 20.0,
-          fontFamily: 'Sansita',
+          fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         ),
       ),
@@ -216,7 +216,7 @@ Widget build(BuildContext context) {
                         style: TextStyle(
                           color: Color.fromARGB(255, 6, 0, 0),
                           fontSize: 12.0,
-                          fontFamily: 'Sansita',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -245,7 +245,7 @@ Widget build(BuildContext context) {
                         style: TextStyle(
                           color: Color.fromARGB(255, 6, 0, 0),
                           fontSize: 12.0,
-                          fontFamily: 'Sansita',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -323,7 +323,7 @@ Widget build(BuildContext context) {
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
-                  fontFamily: 'Sansita',
+                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
                   height: 1.0,
                 ),

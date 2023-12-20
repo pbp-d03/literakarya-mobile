@@ -5,6 +5,7 @@ import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/book_page/screen/list_bookmark.dart';
 import 'package:literakarya_mobile/book_page/screen/list_buku.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
+import 'package:literakarya_mobile/recommendation/screens/recommend.dart';
 import 'package:literakarya_mobile/user_profile/screens/recommend_byfavgenre.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,7 @@ class MyHomePage extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontSize: 20.0,
-          fontFamily: 'Sansita',
+          fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         ),
       ),
@@ -111,7 +112,7 @@ class MyHomePage extends StatelessWidget {
       child: Text(
         'Selamat datang di LiteraKarya!',
         style: TextStyle(
-          fontFamily: 'Sansita',
+          fontFamily: 'Poppins',
           fontSize: 28, // Large font size
           fontWeight: FontWeight.bold, // Bold text
           color: Colors.teal.shade700, // Teal color
@@ -149,7 +150,7 @@ class MyHomePage extends StatelessWidget {
       child: Text(
         'Lihat Buku',
         style: TextStyle(   
-          fontFamily: 'Sansita',     
+          fontFamily: 'Poppins',     
           fontSize: 30, // Large font size
           fontWeight: FontWeight.bold, // Bold text
           color: Colors.teal.shade700, // Teal color
@@ -262,7 +263,7 @@ class MyHomePage extends StatelessWidget {
       child: Text(
         'Fitur LiteraKarya',
         style: TextStyle(
-          fontFamily: 'Sansita',
+          fontFamily: 'Poppins',
           fontSize: 30, // Large font size
           fontWeight: FontWeight.bold, // Bold text
           color: Colors.teal.shade700, // Teal color
@@ -307,7 +308,7 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Rekomendasi',
         'description':
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+            'Berbagi dan dapatkan rekomendasi-rekomendasi buku pilihan yang ada untuk dapat Anda baca dan nikmati segera.',
         'color': const Color.fromARGB(255, 255, 209, 225)
       },
       {
