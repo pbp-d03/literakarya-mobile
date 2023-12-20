@@ -209,6 +209,9 @@ class MyHomePage extends StatelessWidget {
             primary: Colors.teal,
             onPrimary: Colors.white,
             padding: EdgeInsets.all(16.0),
+            shape: RoundedRectangleBorder( // Membuat tombol menjadi rounded
+              borderRadius: BorderRadius.circular(30.0),
+            ),
           ),
           child: FittedBox( // Ensures contents fit within the button
             child: Row(
@@ -242,6 +245,9 @@ class MyHomePage extends StatelessWidget {
             primary: Colors.teal,
             onPrimary: Colors.white,
             padding: EdgeInsets.all(16.0),
+            shape: RoundedRectangleBorder( // Membuat tombol menjadi rounded
+              borderRadius: BorderRadius.circular(30.0),
+            ),
           ),
           child: FittedBox( // Ensures contents fit within the button
             child: Row(

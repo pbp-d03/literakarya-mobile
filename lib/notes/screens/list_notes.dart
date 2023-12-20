@@ -75,7 +75,7 @@ class _NotesPageState extends State<NotesPage> {
       appBar: AppBar(
         title: const Text('Catatan', style: TextStyle(color: Colors.white,
           fontSize: 20.0,
-          fontFamily: 'Sansita',
+          fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         )),
         backgroundColor: Colors.teal.shade400,
