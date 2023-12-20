@@ -21,7 +21,10 @@ class _AllAccountPageState extends State<AllAccountPage> {
       List<User> listAccount = [];
       for (var d in data) {
         if (d != null) {
-          listAccount.add(User.fromJson(d));
+          User account = User.fromJson(d);
+          if (account.fields.username != "adminliterakarya") {
+            listAccount.add(account);
+          }
         }
       }
       setState(() {
@@ -68,14 +71,18 @@ class _AllAccountPageState extends State<AllAccountPage> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Daftar akun',
-          style: TextStyle(color: Colors.white),
+      title: Text(
+        'Daftar Akun',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w700,
         ),
+      ),
         backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
-
-      ),
+    ),
       drawer: buildDrawer(context),
       
       body: Column(
