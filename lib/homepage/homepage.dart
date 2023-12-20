@@ -160,11 +160,11 @@ class MyHomePage extends StatelessWidget {
         itemBuilder: (context, index) {
           // Define the image URLs, titles, authors, and ratings based on the index
           List<String> imageUrls = [
-            'assets/images/bumimanusia.jpg',
-            'assets/images/perahukertas.jpg',
-            'assets/images/ayatayatcinta.jpg',
-            'assets/images/thecityofember.jpg',
-            'assets/images/thehobbit.jpg'
+            'assets/images/bumimanusia.png',
+            'assets/images/perahukertas.png',
+            'assets/images/ayatayatcinta.png',
+            'assets/images/thecityofember.png',
+            'assets/images/thehobbit.png'
           ];
 
           List<String> titles = [
@@ -193,8 +193,10 @@ class MyHomePage extends StatelessWidget {
   }
 
   Widget _buildViewMoreButton(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
-      padding: const EdgeInsets.only(right: 16.0, bottom: 16.0),
+      padding: EdgeInsets.only(right: screenWidth * 0.04, bottom: screenWidth * 0.04), // Dynamic padding
       child: Align(
         alignment: Alignment.bottomRight,
         child: ElevatedButton(
@@ -204,63 +206,59 @@ class MyHomePage extends StatelessWidget {
             );
           },
           style: ElevatedButton.styleFrom(
-            primary: Colors.teal, // Button color
-            onPrimary: Colors.white, // Text color
-            padding: EdgeInsets.all(16.0), // Add padding around the button
+            primary: Colors.teal,
+            onPrimary: Colors.white,
+            padding: EdgeInsets.all(16.0),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Lihat Selengkapnya',
-                style: TextStyle(
-                  fontSize: 14, // Increase text size
-                ),
-              ),
-              SizedBox(width: 8), // Add spacing between text and icon
-              Icon(Icons.arrow_forward_ios_rounded,
-                  size: 18), // Increase icon size
-            ],
+          child: FittedBox( // Ensures contents fit within the button
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Lihat Selengkapnya', style: TextStyle(fontSize: 14)),
+                SizedBox(width: 8),
+                Icon(Icons.arrow_forward_ios_rounded, size: 18),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildForYouButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0, bottom: 16.0),
-      child: Align(
-        alignment: Alignment.bottomRight,
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const RecommendForYou()),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            primary: Colors.teal, // Button color
-            onPrimary: Colors.white, // Text color
-            padding: EdgeInsets.all(16.0), // Add padding around the button
-          ),
+
+ Widget _buildForYouButton(BuildContext context) {
+  double screenWidth = MediaQuery.of(context).size.width;
+
+  return Padding(
+    padding: EdgeInsets.only(right: screenWidth * 0.04, bottom: screenWidth * 0.04), // Dynamic padding
+    child: Align(
+      alignment: Alignment.bottomRight,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const RecommendForYou()),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          primary: Colors.teal,
+          onPrimary: Colors.white,
+          padding: EdgeInsets.all(16.0),
+        ),
+        child: FittedBox( // Ensures contents fit within the button
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Rekomendasi untukmu',
-                style: TextStyle(
-                  fontSize: 14, // Increase text size
-                ),
-              ),
-              SizedBox(width: 8), // Add spacing between text and icon
-              Icon(Icons.arrow_forward_ios_rounded,
-                  size: 18), // Increase icon size
+              Text('Rekomendasi untukmu', style: TextStyle(fontSize: 14)),
+              SizedBox(width: 8),
+              Icon(Icons.arrow_forward_ios_rounded, size: 18),
             ],
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   Widget _buildImageDetail(
       String imageUrl, String title, String author, String rating) {
@@ -339,7 +337,7 @@ class MyHomePage extends StatelessWidget {
       {
         'title': 'Rekomendasi',
         'description':
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+            'Dengan fitur rekomendasi buku, kamu jadi bisa saling berbagi buku-buku kesukaanmu, memberi dan menerima likes dari rekomendasi orang lain, dan mendengarkan musik yang cocok dengan suasana buku.',
         'color': const Color.fromARGB(255, 255, 209, 225)
       },
       {

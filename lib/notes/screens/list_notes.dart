@@ -1,9 +1,5 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/notes/models/note.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
@@ -58,8 +54,6 @@ class _NotesPageState extends State<NotesPage> {
     }
   }
 
-
-
   @override
   void initState() {
     super.initState();
@@ -76,63 +70,54 @@ class _NotesPageState extends State<NotesPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     final uname = LoginPage.uname;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Catatan',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Catatan', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
       ),
       drawer: buildDrawer(context),
-      
-      body: Column(
-        children: [
-          Align(
-          alignment: Alignment.topLeft,
-          // Button to add new note
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), 
-                  side: BorderSide(color: Colors.teal), 
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: Colors.teal),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const NoteFormPage()),
+                  );
+                },
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.add, color: Colors.teal),
+                      SizedBox(width: 8),
+                      Text(
+                        'Tambah Catatan',
+                        style: TextStyle(
+                          color: Colors.teal.shade700,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const NoteFormPage(),
-                  ),
-                );
-              },
-            child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.add,
-                    color: Colors.teal,
-                  ),
-                  SizedBox(width: 8), // Spasi antara ikon dan teks
-                  Text(
-                    'Tambah Catatan',
-                    style: TextStyle(
-                      color: Colors.teal.shade700,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
             ),
-          ),
-          ),
-          // Note list or no note text
-          Expanded(
-            child: notes.isEmpty
+            notes.isEmpty
               ? const Center(
                   child: Text(
                     "Tidak ada catatan.",
@@ -140,15 +125,15 @@ class _NotesPageState extends State<NotesPage> {
                   ),
                 )
               : ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: notes.length,
                   itemBuilder: (_, index) {
                     return InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailNotePage(item: notes[index]),
-                          ),
+                          MaterialPageRoute(builder: (context) => DetailNotePage(item: notes[index])),
                         );
                       },
                       child: Card(
@@ -168,10 +153,7 @@ class _NotesPageState extends State<NotesPage> {
                                 children: [
                                   Text(
                                     "${notes[index].fields.judulCatatan}",
-                                    style: const TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(height: 10),
                                   Text("Judul Buku : ${notes[index].fields.judulBuku}"),
@@ -180,10 +162,8 @@ class _NotesPageState extends State<NotesPage> {
                                   const SizedBox(height: 10),
                                   Text(
                                     "Penanda : ${notes[index].fields.penanda}",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color:   Color.fromARGB(255, 16, 131, 120), 
-                                    ))
+                                    style: const TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 16, 131, 120)),
+                                  ),
                                 ],
                               ),
                             ),
@@ -199,23 +179,21 @@ class _NotesPageState extends State<NotesPage> {
                                       onPressed: () async {
                                         final result = await Navigator.push(
                                           context,
-                                          MaterialPageRoute(
-                                            builder: (context) => EditNotePage(note: notes[index]),
-                                          ),
+                                          MaterialPageRoute(builder: (context) => EditNotePage(note: notes[index])),
                                         );
-                                      if (result == true) {
-                                        refreshNotesList();
-                                      }
-                                    },
-                                  ),
+                                        if (result == true) {
+                                          refreshNotesList();
+                                        }
+                                      },
+                                    ),
                                   IconButton(
                                     icon: Icon(Icons.delete, color: Colors.red),
                                     onPressed: () async {
-                                    int idNote = notes[index].pk;
-                                    await deleteNote(idNote, request);
+                                      int idNote = notes[index].pk;
+                                      await deleteNote(idNote, request);
                                     },
                                   ),
-                          ],
+                                ],
                               ),
                             ),
                           ],
@@ -224,10 +202,9 @@ class _NotesPageState extends State<NotesPage> {
                     );
                   },
                 ),
-          ),
-        ],
-      )
-      );
-
+          ],
+        ),
+      ),
+    );
   }
 }

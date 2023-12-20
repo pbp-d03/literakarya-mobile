@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:literakarya_mobile/recommendation/screens/recommend.dart';
 import 'dart:convert';
+import 'package:literakarya_mobile/recommendation/models/recommendation.dart';
+import 'package:literakarya_mobile/recommendation/screens/recommend.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-class FormRecommend extends StatefulWidget {
+class EditRecommend extends StatefulWidget {
+  final Rekomendasi recommendation;
+
+  EditRecommend({required this.recommendation});
+
   @override
-  _FormRecommendState createState() => _FormRecommendState();
+  _EditRecommendState createState() => _EditRecommendState();
 }
 
-class _FormRecommendState extends State<FormRecommend> {
+class _EditRecommendState extends State<EditRecommend> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _judulBukuController = TextEditingController();
   TextEditingController _nilaiBukuController = TextEditingController();
   TextEditingController _isiRekomendasiController = TextEditingController();
   String? _selectedGenre;
@@ -20,10 +24,13 @@ class _FormRecommendState extends State<FormRecommend> {
   List<String> _genres = [];
   List<Map<String, dynamic>> _books = [];
 
-
   @override
   void initState() {
     super.initState();
+    _nilaiBukuController.text = widget.recommendation.fields.nilaiBuku;
+    _isiRekomendasiController.text = widget.recommendation.fields.isiRekomendasi;
+    _selectedGenre = widget.recommendation.fields.genreBuku;
+    _selectedBook = widget.recommendation.fields.judulBuku.toString();
     fetchGenres();
   }
 
@@ -48,45 +55,42 @@ class _FormRecommendState extends State<FormRecommend> {
     }
   }
 
-  
-  Future<void> submitRecommendation() async {
-  if (_formKey.currentState!.validate()) {
-    // Mengumpulkan data dari form
-    String genreBuku = _selectedGenre ?? '';
-    String judulBukuId = _selectedBook ?? '';
-    String nilaiBuku = _nilaiBukuController.text;
-    String isiRekomendasi = _isiRekomendasiController.text;
+  Future<void> submitEdit() async {
+    if (_formKey.currentState!.validate()) {
+      // Mengumpulkan data dari form
+      String nilaiBuku = _nilaiBukuController.text;
+      String isiRekomendasi = _isiRekomendasiController.text;
 
-    // Membuat request POST ke server Django
-    final request = context.read<CookieRequest>();
-    final response = await request.postJson(
-      "https://literakarya-d03-tk.pbp.cs.ui.ac.id/recommendation/bikin_flutter/",
-      jsonEncode({
-        'genre_buku': genreBuku,
-        'judul_buku': judulBukuId, // Pastikan ini adalah ID buku
-        'nilai_buku': nilaiBuku,
-        'isi_rekomendasi': isiRekomendasi,
-      }),
-    );
-
-    // Menangani respons dari server
-    if (response["status"] == "success") {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Recommendation submitted successfully'))
+      // Membuat request PUT ke server Django untuk mengedit rekomendasi
+      final request = context.read<CookieRequest>();
+      final response = await request.postJson(
+        "https://literakarya-d03-tk.pbp.cs.ui.ac.id/recommendation/edit_rekom_flutter/${widget.recommendation.pk}/",
+        jsonEncode({
+          'genre_buku': _selectedGenre,
+          'judul_buku': _selectedBook,
+          'nilai_buku': _nilaiBukuController.text,
+          'isi_rekomendasi': _isiRekomendasiController.text,
+        }),
       );
 
-      Navigator.pushReplacement(
+      // Menangani respons dari server
+      if (response["status"] == "success") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Recommendation edited successfully')),
+        );
+
+        // Kembali ke halaman sebelumnya
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => RecommendationsPage()));
-
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to submit recommendation'))
-      );
+            
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to edit recommendation')),
+        );
+      }
     }
   }
-}
-
 
   @override
 Widget build(BuildContext context) {
@@ -117,7 +121,7 @@ Widget build(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  'Give Us Some Book Recommendation!',
+                  'Be Honest with Yourself!',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
@@ -149,13 +153,13 @@ Widget build(BuildContext context) {
                 },
                 items: _books.map<DropdownMenuItem<String>>((Map<String, dynamic> book) {
                   return DropdownMenuItem<String>(
-                    value: book['id'].toString(), // Gunakan ID buku sebagai value
-                    child: Text(book['nama_buku']), // Tampilkan nama buku
+                    value: book['id'].toString(),
+                    child: Text(book['nama_buku']),
                   );
                 }).toList(),
-                  validator: (value) =>
-                      value == null ? 'Please select a book' : null,
-                  decoration: InputDecoration(labelText: 'Book Title'),
+                validator: (value) =>
+                    value == null ? 'Please select a book' : null,
+                decoration: InputDecoration(labelText: 'Book Title'),
               ),
               TextFormField(
                 controller: _nilaiBukuController,
@@ -185,8 +189,8 @@ Widget build(BuildContext context) {
                 },
               ),
               ElevatedButton(
-                onPressed: () => submitRecommendation(),
-                child: Text('Submit'),
+                onPressed: () => submitEdit(),
+                child: Text('Edit Recommendation'),
               ),
               ],
             ),
@@ -196,5 +200,4 @@ Widget build(BuildContext context) {
     ),
   );
 }
-
 }

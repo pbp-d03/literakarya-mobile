@@ -14,7 +14,7 @@ Future<List<Book>> fetchBook(String genre) async {
         'https://literakarya-d03-tk.pbp.cs.ui.ac.id/books/book-filter/$genre/');
   }
 
-  // var url = Uri.parse('http://localhost:8000/get-items/');
+  // var url = Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/get-items/');
   var response = await http.get(
     url,
     // "Access-Control-Allow-Origin": "*",

@@ -1,16 +1,23 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:literakarya_mobile/authentication/login.dart';
 import 'package:literakarya_mobile/homepage/drawer.dart';
 import 'package:http/http.dart' as http;
+import 'package:literakarya_mobile/recommendation/screens/edit_recommend.dart';
 import 'package:literakarya_mobile/recommendation/screens/form_recommend.dart';
 import 'package:provider/provider.dart';
 import 'package:literakarya_mobile/recommendation/models/recommendation.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:audioplayers/audioplayers.dart';
+
+
 
 // Assuming you already have the Rekomendasi class defined
 
 // Function to fetch recommendations
 Future<List<Rekomendasi>> fetchRecommendations() async {
-  final response = await http.get(Uri.parse('http://localhost:8000/recommendation/json/'));
+  final response = await http.get(Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/recommendation/json/'));
 
   if (response.statusCode == 200) {
     return rekomendasiFromJson(response.body);
@@ -52,11 +59,55 @@ class RecommendationsPage extends StatefulWidget {
 class _RecommendationsPageState extends State<RecommendationsPage> {
   late Future<List<Rekomendasi>> futureRecommendations;
   bool showBookRecommendations = true; // Toggle state for showing book recommendations
+  late AudioPlayer audioPlayer; // Declare audioPlayer at class level
+  bool isPlaying = false; // Declare isPlaying at class level
+  Map<int, bool> likesState = {}; // Tracks whether a recommendation is liked
+  Map<int, int> totalLikes = {}; // Tracks total likes for each recommendation
+
+  Future<void> deleteRecommendation(int pk) async {
+  try {
+    final response = await http.delete(
+  Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/recommendation/hapus_rekom_flutter/$pk/'),
+      headers: {
+        'Content-Type': 'application/json',
+        // Tambahkan header autentikasi jika diperlukan
+      },
+      body: jsonEncode({'id': pk}),
+    );
+
+    if (response.statusCode == 200) {
+      // Hapus item dari daftar rekomendasi dan perbarui UI
+      setState(() {
+        futureRecommendations = fetchRecommendations();
+      });
+    } else {
+      throw Exception('Failed to delete the recommendation');
+    }
+  } catch (e) {
+    // Tampilkan error kepada pengguna atau log error
+    print('Error deleting recommendation: $e');
+  }
+}
 
   @override
   void initState() {
     super.initState();
-    futureRecommendations = fetchRecommendations();
+
+    audioPlayer = AudioPlayer();
+
+    futureRecommendations = fetchRecommendations().then((recommendations) async {
+    for (var recommendation in recommendations) {
+      likesState[recommendation.pk] = recommendation.fields.likes.contains(recommendation.pk);
+      totalLikes[recommendation.pk] = recommendation.fields.likes.length;
+    }
+    return recommendations;
+  });
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose(); // Dispose of audioPlayer when widget is disposed
+    super.dispose();
   }
 
 void navigateAndRefresh() async {
@@ -70,6 +121,49 @@ void navigateAndRefresh() async {
     futureRecommendations = fetchRecommendations();
   });
 }
+
+Future<void> onLikeToggle(int pk) async {
+  final CookieRequest request = Provider.of<CookieRequest>(context, listen: false);
+  bool newLikeStatus = !(likesState[pk] ?? false);
+
+  // Toggle state lokal
+  setState(() {
+    likesState[pk] = newLikeStatus;
+    totalLikes[pk] = (totalLikes[pk] ?? 0) + (newLikeStatus ? 1 : -1);
+  });
+
+  try {
+    final Uri uri = Uri.parse('https://literakarya-d03-tk.pbp.cs.ui.ac.id/recommendation/like_flutter/$pk/');
+    final responseData = await request.post(
+      uri.toString(),
+      jsonEncode({'action': newLikeStatus ? 'like' : 'unlike', 'user_id': LoginPage.uname}),
+    );
+
+    if (responseData['status'] == 'success') {
+      setState(() {
+        totalLikes[pk] = responseData['total_likes'];
+        likesState[pk] = responseData['is_liked'];
+      });
+      print('Sending User ID: $request');
+
+    } else {
+      // Rollback state jika terjadi error
+      setState(() {
+        likesState[pk] = !newLikeStatus;
+        totalLikes[pk] = (totalLikes[pk] ?? 0) + (!newLikeStatus ? 1 : -1);
+      });
+      print('Error updating like status: ${responseData['message']}');
+    }
+  } catch (e) {
+    // Rollback state jika terjadi error
+    setState(() {
+      likesState[pk] = !newLikeStatus;
+      totalLikes[pk] = (totalLikes[pk] ?? 0) + (!newLikeStatus ? 1 : -1);
+    });
+    print('Error updating like status: $e');
+  }
+}
+
 
 
  @override
@@ -86,11 +180,8 @@ Widget build(BuildContext context) {
         ),
       ),
       backgroundColor: Theme.of(context).primaryColor,
-      leading: Padding(
-        padding: EdgeInsets.all(5.0),
-        child: Image.asset("assets/images/logo_literakarya.png"),
-      ),
     ),
+    drawer: buildDrawer(context),
     body: Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -258,71 +349,124 @@ Widget build(BuildContext context) {
     );
   }
 
-  Widget bookCard(Fields fields) {
-  // This widget builds an individual card for a book.
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      color: Color.fromARGB(255, 61, 109, 121),
-      margin: const EdgeInsets.all(8),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10), // Match the card's border radius
-              child: Image.network(
-                fields.gambarBuku,
-                fit: BoxFit.cover,
-                height: 100, // Fixed height for the image
-                width: double.infinity,
-              ),
+  Widget bookCard(Fields fields, int pk, Rekomendasi recommendation) {
+    // bool isCurrentUser = currentUserId == recommendation.userId;
+    bool isLiked = likesState[pk] ?? false;
+    int currentTotalLikes = totalLikes[pk] ?? 0;
+  return Card(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    elevation: 5,
+    color: Color.fromARGB(255, 61, 109, 121),
+    margin: const EdgeInsets.all(8),
+    child: Stack(
+      children: [
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10), // Match the card's border radius
+                  child: Image.network(
+                    fields.gambarBuku,
+                    fit: BoxFit.cover,
+                    height: 100, // Fixed height for the image
+                    width: double.infinity,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  fields.judulBuku,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Genre: ${fields.genreBuku}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Rating: ${fields.nilaiBuku}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Review: \n${fields.isiRekomendasi}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        isLiked ? Icons.favorite : Icons.favorite_border,
+                        color: isLiked ? Colors.red : Colors.grey,
+                      ),
+                      onPressed: () => onLikeToggle(pk),
+                    ),
+                    Text('$currentTotalLikes likes',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(height: 8),
-            Text(
-              fields.judulBuku,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: 4),
-            Text(
-              'Genre: ${fields.genreBuku}',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.white,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: 4),
-            Text(
-              'Rating: ${fields.nilaiBuku}',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              'Review: \n${fields.isiRekomendasi}',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.white,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
+        Positioned(
+          right: 0,
+          bottom: 0,
+          child: Row(
+            children: [
+              if (LoginPage.uname == 'adminliterakarya')
+              IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => EditRecommend(recommendation: recommendation),
+                    ),
+                  );
+                },
+              ),
+              if (LoginPage.uname == 'adminliterakarya')
+              IconButton(
+                icon: Icon(Icons.delete, color: Color.fromARGB(255, 255, 255, 255)),
+                onPressed: () {
+                  deleteRecommendation(pk);
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget bookRecommendationView() {
     return Column(
@@ -367,10 +511,19 @@ Widget build(BuildContext context) {
                 ),
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  Rekomendasi recommendation = snapshot.data![index];
-                  Fields fields = recommendation.fields;
-                  return bookCard(fields); // Your book card widget
+                  var recommendation = snapshot.data![index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditRecommend(recommendation: recommendation),
+                        ),
+                      );
+                    },
+                    child: bookCard(recommendation.fields, recommendation.pk, recommendation), 
+                  );
                 },
+
               );
             } else {
               // If there's no data, show a message to the user.
@@ -384,9 +537,49 @@ Widget build(BuildContext context) {
     
   }
 
+
   Widget musicPlaylistView() {
-    return SizedBox();
-    // The method content for musicPlaylistView goes here
+    // Fungsi untuk mengontrol pemutaran
+    void playAudio() async {
+      await audioPlayer.stop(); // Hentikan lagu yang sedang diputar
+      await audioPlayer.play(UrlSource('assets/audio/compfest.mp3'));
+      setState(() {
+        isPlaying = true; // Ubah state pemutaran menjadi true
+      });
+    }
+
+    void stopAudio() async {
+      await audioPlayer.stop(); // Hentikan lagu yang sedang diputar
+      setState(() {
+        isPlaying = false; // Ubah state pemutaran menjadi false
+      });
+    }
+
+    return ListView(
+      children: <Widget>[
+        Card( // Membungkus ListTile dengan Card
+          elevation: 4.0, // Menambahkan sedikit bayangan
+          margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4), // Spasi antar card
+          child: ListTile(
+            title: Text('Compfest'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.play_arrow), // Ikon play
+                  onPressed: playAudio, // Memanggil fungsi playAudio saat tombol ditekan
+                ),
+                IconButton(
+                  icon: Icon(Icons.stop), // Ikon stop
+                  onPressed: stopAudio, // Memanggil fungsi stopAudio saat tombol ditekan
+                ),
+              ],
+            ),
+          ),
+        ),
+        // Tambahkan ListTile lainnya dengan Card di sini
+      ],
+    );
   }
 
 }
