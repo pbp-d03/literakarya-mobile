@@ -76,10 +76,8 @@ class MyHomePage extends StatelessWidget {
                   _buildBookTitleSection(),
                   _buildImageSection(),
                   _buildViewMoreButton(context),
-                  _buildForYouButton(context),
                   _buildFeatureTitleSection(),
                   _buildFeatureSection(),
-                  // Other sections...
                 ],
               ),
             ),
@@ -104,7 +102,7 @@ class MyHomePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Text(
-        'Selamat datang di LiteraKarya!',
+        'Selamat Datang di LiteraKarya!',
         style: TextStyle(
           fontSize: 28, // Large font size
           fontWeight: FontWeight.bold, // Bold text
@@ -225,41 +223,6 @@ class MyHomePage extends StatelessWidget {
       ),
     );
   }
-
-
- Widget _buildForYouButton(BuildContext context) {
-  double screenWidth = MediaQuery.of(context).size.width;
-
-  return Padding(
-    padding: EdgeInsets.only(right: screenWidth * 0.04, bottom: screenWidth * 0.04), // Dynamic padding
-    child: Align(
-      alignment: Alignment.bottomRight,
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => RecommendationsPage()),
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          primary: Colors.teal,
-          onPrimary: Colors.white,
-          padding: EdgeInsets.all(16.0),
-        ),
-        child: FittedBox( // Ensures contents fit within the button
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Rekomendasi untukmu', style: TextStyle(fontSize: 14)),
-              SizedBox(width: 8),
-              Icon(Icons.arrow_forward_ios_rounded, size: 18),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
 
   Widget _buildImageDetail(
       String imageUrl, String title, String author, String rating) {
