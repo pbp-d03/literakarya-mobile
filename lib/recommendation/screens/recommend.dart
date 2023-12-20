@@ -59,6 +59,8 @@ class RecommendationsPage extends StatefulWidget {
 class _RecommendationsPageState extends State<RecommendationsPage> {
   late Future<List<Rekomendasi>> futureRecommendations;
   bool showBookRecommendations = true; // Toggle state for showing book recommendations
+  late AudioPlayer audioPlayer; // Declare audioPlayer at class level
+  bool isPlaying = false; // Declare isPlaying at class level
   Map<int, bool> likesState = {}; // Tracks whether a recommendation is liked
   Map<int, int> totalLikes = {}; // Tracks total likes for each recommendation
 
@@ -91,6 +93,8 @@ class _RecommendationsPageState extends State<RecommendationsPage> {
   void initState() {
     super.initState();
 
+    audioPlayer = AudioPlayer();
+
     futureRecommendations = fetchRecommendations().then((recommendations) async {
     for (var recommendation in recommendations) {
       likesState[recommendation.pk] = recommendation.fields.likes.contains(recommendation.pk);
@@ -98,7 +102,12 @@ class _RecommendationsPageState extends State<RecommendationsPage> {
     }
     return recommendations;
   });
+  }
 
+  @override
+  void dispose() {
+    audioPlayer.dispose(); // Dispose of audioPlayer when widget is disposed
+    super.dispose();
   }
 
 void navigateAndRefresh() async {
@@ -528,23 +537,49 @@ Widget build(BuildContext context) {
     
   }
 
-  Widget musicPlaylistView() {
-  final audioPlayer = AudioPlayer();
 
-  return ListView(
-    children: <Widget>[
-      ListTile(
-        title: Text('Compfest'),
-        trailing: IconButton(
-          icon: Icon(Icons.play_arrow),
-          onPressed: () async {
-            await audioPlayer.play(UrlSource('assets/audio/compfest.mp3'));
-          },
+  Widget musicPlaylistView() {
+    // Fungsi untuk mengontrol pemutaran
+    void playAudio() async {
+      await audioPlayer.stop(); // Hentikan lagu yang sedang diputar
+      await audioPlayer.play(UrlSource('assets/audio/compfest.mp3'));
+      setState(() {
+        isPlaying = true; // Ubah state pemutaran menjadi true
+      });
+    }
+
+    void stopAudio() async {
+      await audioPlayer.stop(); // Hentikan lagu yang sedang diputar
+      setState(() {
+        isPlaying = false; // Ubah state pemutaran menjadi false
+      });
+    }
+
+    return ListView(
+      children: <Widget>[
+        Card( // Membungkus ListTile dengan Card
+          elevation: 4.0, // Menambahkan sedikit bayangan
+          margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4), // Spasi antar card
+          child: ListTile(
+            title: Text('Compfest'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.play_arrow), // Ikon play
+                  onPressed: playAudio, // Memanggil fungsi playAudio saat tombol ditekan
+                ),
+                IconButton(
+                  icon: Icon(Icons.stop), // Ikon stop
+                  onPressed: stopAudio, // Memanggil fungsi stopAudio saat tombol ditekan
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
-      // Tambahkan ListTile lainnya untuk file audio lainnya di sini
-    ],
-  );
-}
+        // Tambahkan ListTile lainnya dengan Card di sini
+      ],
+    );
+  }
 
 }
