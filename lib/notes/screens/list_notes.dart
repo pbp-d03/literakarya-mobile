@@ -87,7 +87,7 @@ class _NotesPageState extends State<NotesPage> {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(10),
                     side: BorderSide(color: Colors.teal),
                   ),
                 ),
