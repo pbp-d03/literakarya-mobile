@@ -24,19 +24,9 @@ class _EditNotePageState extends State<EditNotePage> {
   List<String> _bookTitles = [];
   String _selectedBookTitle = "";
   double _adjustFontSize(String title) {
-    int titleLength = title.length;
-
-    // Set base font size
+  int titleLength = title.length;
     double fontSize = 16;
-
-    // Decrease the font size for longer titles
-    if (titleLength > 20) {
-      fontSize = 12;
-    }
-    if (titleLength > 30) {
-      fontSize = 10;
-    }
-     return fontSize;
+    return fontSize;
   }
 
   @override
@@ -118,37 +108,42 @@ class _EditNotePageState extends State<EditNotePage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: DropdownButtonFormField<String>(
-                value: _selectedBookTitle,
-                decoration: InputDecoration(
-                  labelText: "Judul Buku",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-                items: _bookTitles.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: TextStyle(fontSize: _adjustFontSize(value)), // Dynamic font size
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  value: _selectedBookTitle.isEmpty ? null : _selectedBookTitle,
+                  decoration: InputDecoration(
+                    labelText: "Judul Buku",
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15), // Reduced padding
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _selectedBookTitle = newValue!;
-                    _judulBuku = newValue;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Judul buku tidak boleh kosong!";
-                  }
-                  return null;
-                },
+                  ),
+                  items: _bookTitles.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        overflow: TextOverflow.ellipsis, // Add ellipsis for overflow
+                        style: TextStyle(fontSize: _adjustFontSize(value)), // Dynamic font size
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedBookTitle = newValue ?? '';
+                      _judulBuku = newValue ?? '';
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Judul buku tidak boleh kosong!";
+                    }
+                    return null;
+                  },
+                  iconSize: MediaQuery.of(context).size.width * 0.05, // Adjust icon size dynamically
+                ),
               ),
             ),
             Padding(

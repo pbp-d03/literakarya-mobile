@@ -58,8 +58,6 @@ class _NotesPageState extends State<NotesPage> {
     }
   }
 
-
-
   @override
   void initState() {
     super.initState();
@@ -86,51 +84,52 @@ class _NotesPageState extends State<NotesPage> {
         foregroundColor: Colors.white,
       ),
       drawer: buildDrawer(context),
-      
       body: Column(
         children: [
           Align(
-          alignment: Alignment.topLeft,
-          // Button to add new note
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), 
-                  side: BorderSide(color: Colors.teal), 
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: BorderSide(color: Colors.teal),
+                  ),
                 ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const NoteFormPage(),
-                  ),
-                );
-              },
-            child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.add,
-                    color: Colors.teal,
-                  ),
-                  SizedBox(width: 8), // Spasi antara ikon dan teks
-                  Text(
-                    'Tambah Catatan',
-                    style: TextStyle(
-                      color: Colors.teal.shade700,
-                      fontWeight: FontWeight.bold,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NoteFormPage(),
                     ),
+                  );
+                },
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.add,
+                        color: Colors.teal,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Tambah Catatan',
+                        style: TextStyle(
+                          color: Colors.teal.shade700,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
-          ),
-          // Note list or no note text
           Expanded(
             child: notes.isEmpty
               ? const Center(
@@ -182,8 +181,9 @@ class _NotesPageState extends State<NotesPage> {
                                     "Penanda : ${notes[index].fields.penanda}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color:   Color.fromARGB(255, 16, 131, 120), 
-                                    ))
+                                      color: Color.fromARGB(255, 16, 131, 120),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
@@ -203,19 +203,19 @@ class _NotesPageState extends State<NotesPage> {
                                             builder: (context) => EditNotePage(note: notes[index]),
                                           ),
                                         );
-                                      if (result == true) {
-                                        refreshNotesList();
-                                      }
-                                    },
-                                  ),
+                                        if (result == true) {
+                                          refreshNotesList();
+                                        }
+                                      },
+                                    ),
                                   IconButton(
                                     icon: Icon(Icons.delete, color: Colors.red),
                                     onPressed: () async {
-                                    int idNote = notes[index].pk;
-                                    await deleteNote(idNote, request);
+                                      int idNote = notes[index].pk;
+                                      await deleteNote(idNote, request);
                                     },
                                   ),
-                          ],
+                                ],
                               ),
                             ),
                           ],
@@ -226,8 +226,7 @@ class _NotesPageState extends State<NotesPage> {
                 ),
           ),
         ],
-      )
-      );
-
+      ),
+    );
   }
 }
