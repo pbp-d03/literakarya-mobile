@@ -81,19 +81,14 @@ class _ForumPageState extends State<ForumPage> {
             ),
           );
         },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.green,
+        child: Icon(
+          Icons.add,
+          color: Colors.white, // Mengatur warna ikon menjadi putih
+        ),
+        backgroundColor: Colors.teal,
       ),
       body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [Colors.greenAccent, Colors.blueGrey]),
-              borderRadius: BorderRadius.circular(0),
-              boxShadow: const [
-                BoxShadow(color: Colors.black, blurRadius: 2.0)
-              ]),
+          color: Colors.white, 
           child: Center(
               child: FutureBuilder(
                   future: fetchPost(),
@@ -129,8 +124,12 @@ class _ForumPageState extends State<ForumPage> {
                                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                                 padding: EdgeInsets.all(20),
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  color: Colors.teal.shade50, // Mengatur warna background menjadi putih
                                   borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    color: Colors.teal, // Mengatur warna border menjadi teal
+                                    width: 2.0, // Mengatur lebar border
+                                  ),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,12 +141,12 @@ class _ForumPageState extends State<ForumPage> {
                                           "${snapshot.data![index].fields.subject}",
                                           style: const TextStyle(
                                             fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.w700,
                                           ),
                                         ),
                                         if (LoginPage.uname == snapshot.data![index].fields.user)
                                           IconButton(
-                                            icon: Icon(Icons.delete),
+                                            icon: Icon(Icons.delete, color: Colors.red,),
                                             onPressed: () async {
                                               int idPost = snapshot.data![index].pk;
                                               await deletePost(idPost, request);
@@ -163,7 +162,7 @@ class _ForumPageState extends State<ForumPage> {
                                         children: <TextSpan>[
                                           TextSpan(
                                             text: '${snapshot.data![index].fields.user}',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
+                                            style: TextStyle(fontWeight: FontWeight.w800, color: Colors.blue),
                                           ),
                                           TextSpan(text: ' · ${snapshot.data![index].fields.date}'),
                                         ],

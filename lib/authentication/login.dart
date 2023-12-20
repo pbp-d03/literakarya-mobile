@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
+            image: AssetImage("assets/images/loginregister.png"),
             fit: BoxFit.cover,
           ),
         ),
