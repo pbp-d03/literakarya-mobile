@@ -71,7 +71,11 @@ class _EditNotePageState extends State<EditNotePage> {
         title: const Center(
           child: Text(
             'Edit Catatan',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
+        ),
           ),
         ),
         backgroundColor: Color.fromARGB(255, 38, 166, 154),

@@ -76,6 +76,7 @@ class MyHomePage extends StatelessWidget {
                   _buildBookTitleSection(),
                   _buildImageSection(),
                   _buildViewMoreButton(context),
+                  _buildForYouButton(context),
                   _buildFeatureTitleSection(),
                   _buildFeatureSection(),
                 ],
@@ -197,7 +198,7 @@ class MyHomePage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(right: screenWidth * 0.04, bottom: screenWidth * 0.04), // Dynamic padding
       child: Align(
-        alignment: Alignment.bottomRight,
+        alignment: Alignment.bottomCenter,
         child: ElevatedButton(
           onPressed: () {
             Navigator.of(context).push(
@@ -214,6 +215,39 @@ class MyHomePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text('Lihat Selengkapnya', style: TextStyle(fontSize: 14)),
+                SizedBox(width: 8),
+                Icon(Icons.arrow_forward_ios_rounded, size: 18),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+    Widget _buildForYouButton(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: EdgeInsets.only(right: screenWidth * 0.04, bottom: screenWidth * 0.04), // Dynamic padding
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const  RecommendForYou()),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.teal,
+            onPrimary: Colors.white,
+            padding: EdgeInsets.all(16.0),
+          ),
+          child: FittedBox( // Ensures contents fit within the button
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Rekomendasi Pintar Untukmu', style: TextStyle(fontSize: 14)),
                 SizedBox(width: 8),
                 Icon(Icons.arrow_forward_ios_rounded, size: 18),
               ],

@@ -79,14 +79,19 @@ class _EreadingAdminPageState extends State<EreadingAdminPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Ereading',
-          style: TextStyle(color: Colors.white),
+    appBar: AppBar(
+      title: Text(
+        'E-reading',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
         ),
+      ),
         backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
-      ),
+    ),
       drawer: buildDrawer(context),
       body: SafeArea(
         child: Padding(

@@ -58,15 +58,20 @@ class _EreadingUserPageState extends State<EreadingUserPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Ereading',
-          style: TextStyle(color: Colors.white),
+   return Scaffold(
+    appBar: AppBar(
+      title: Text(
+        'E-reading',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
         ),
+      ),
         backgroundColor: Colors.teal.shade400,
         foregroundColor: Colors.white,
-      ),
+    ),
       drawer: buildDrawer(context),
       body: SafeArea(
         child: Padding(

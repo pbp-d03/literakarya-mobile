@@ -47,11 +47,19 @@ class _SingleBookState extends State<SingleBook> {
     // print(bookmark);
     final request = context.watch<CookieRequest>();
     return Scaffold(
-        backgroundColor: Colors.green[100],
-        appBar: AppBar(
-          title: Text("Detail"),
-          backgroundColor: Colors.teal.shade400,
+    appBar: AppBar(
+      title: Text(
+        'Detail',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
         ),
+      ),
+        backgroundColor: Colors.teal.shade400,
+        foregroundColor: Colors.white,
+    ),
         drawer: buildDrawer(context),
         body: SingleChildScrollView(
           child: Container(

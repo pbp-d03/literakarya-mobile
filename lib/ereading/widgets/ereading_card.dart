@@ -15,11 +15,12 @@ class EreadingCard extends StatelessWidget {
       required this.onDelete});
 
   Future<void> _launchURL(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not launch $url';
-    }
+    launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication).onError(
+      (error, stackTrace) {
+        debugPrint("Url is not valid!");
+        return false;
+      },
+    );
   }
 
   @override

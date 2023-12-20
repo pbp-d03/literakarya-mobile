@@ -63,9 +63,19 @@ class _DetailPostPageState extends State<DetailPostPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Forum'),
+    appBar: AppBar(
+      title: Text(
+        'Forum',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontFamily: 'Sansita',
+          fontWeight: FontWeight.w700,
+        ),
       ),
+        backgroundColor: Colors.teal.shade400,
+        foregroundColor: Colors.white,
+    ),
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
